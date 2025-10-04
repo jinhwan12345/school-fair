@@ -30,7 +30,7 @@ export default function SchoolsInfo() {
       <Header />
 
       {/* ===================== 상단 타이틀 ===================== */}
-      <section className="w-full bg-[#2A7DE1] text-white py-5 text-center font-semibold text-lg tracking-tight">
+      <section className="w-full bg-[#2A7DE1] text-white py-5 text-left font-semibold text-lg tracking-tight">
         관내 고등학교 안내
       </section>
 
