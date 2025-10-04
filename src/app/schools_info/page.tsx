@@ -30,7 +30,7 @@ export default function SchoolsInfo() {
       <Header />
 
       {/* ===================== 상단 타이틀 ===================== */}
-      <section className="w-full bg-[#2A7DE1] text-white py-5 text-left font-semibold text-lg tracking-tight">
+      <section className="w-full bg-[#2A7DE1] text-white py-5 text-center font-semibold text-lg tracking-tight">
         관내 고등학교 안내
       </section>
 
@@ -51,7 +51,7 @@ export default function SchoolsInfo() {
               key={i}
               className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#6AAAE4] transition-all duration-200 ease-in-out flex flex-col items-center py-8 px-4 cursor-pointer"
             >
-              <div className="w-full aspect-square max-w-[180px] relative mb-5">
+              <div className="w-full aspect-square max-w-[250px] relative mb-5">
                 <Image
                   src={`/images/schools_logo/school${i + 1}.png`}
                   alt={school.name}
