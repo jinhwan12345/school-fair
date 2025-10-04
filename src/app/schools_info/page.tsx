@@ -29,33 +29,44 @@ export default function SchoolsInfo() {
       {/* ✅ 공용 헤더 */}
       <Header />
 
-      {/* ===================== 상단 타이틀 영역 ===================== */}
+      {/* ===================== 상단 타이틀 ===================== */}
       <section className="w-full bg-[#2A7DE1] text-white py-5 text-center font-semibold text-lg tracking-tight">
         관내 고등학교 안내
       </section>
 
       {/* ===================== 학교 리스트 ===================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {schools.map((school, i) => (
-          <div
-            key={i}
-            className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#6AAAE4] transition-all duration-200 ease-in-out flex flex-col items-center py-8 px-4 cursor-pointer"
-          >
-            <div className="w-[100px] h-[100px] relative mb-5">
-              <Image
-                src={`/images/schools_logo/school${i + 1}.png`}
-                alt={school.name}
-                fill
-                className="object-contain"
-              />
+      <section className="max-w-[1200px] mx-auto px-6 py-12">
+        <div
+          className="
+            grid 
+            gap-8 
+            sm:grid-cols-2 
+            md:grid-cols-3 
+            xl:grid-cols-4
+            auto-rows-fr
+          "
+        >
+          {schools.map((school, i) => (
+            <div
+              key={i}
+              className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#6AAAE4] transition-all duration-200 ease-in-out flex flex-col items-center py-8 px-4 cursor-pointer"
+            >
+              <div className="w-full aspect-square max-w-[180px] relative mb-5">
+                <Image
+                  src={`/images/schools_logo/school${i + 1}.png`}
+                  alt={school.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-base font-bold mb-1 text-gray-800 text-center">
+                {school.name}
+              </h3>
+              <p className="text-sm text-gray-500">{school.type}</p>
+              <p className="text-sm text-gray-500">{school.establish}</p>
             </div>
-            <h3 className="text-base font-bold mb-1 text-gray-800 text-center">
-              {school.name}
-            </h3>
-            <p className="text-sm text-gray-500">{school.type}</p>
-            <p className="text-sm text-gray-500">{school.establish}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
 
       {/* ===================== 푸터 ===================== */}
