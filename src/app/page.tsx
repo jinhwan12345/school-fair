@@ -9,11 +9,11 @@ export default function Home() {
     if (!scrollContainer) return;
 
     let animationFrame: number;
-    const speed = 1; // 슬라이드 속도 (픽셀/frame)
+    const speed = 1;
 
     const scroll = () => {
       if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
-        scrollContainer.scrollLeft = 0; // 끝까지 가면 처음으로
+        scrollContainer.scrollLeft = 0;
       } else {
         scrollContainer.scrollLeft += speed;
       }
@@ -28,9 +28,9 @@ export default function Home() {
     <main className="flex flex-col items-center bg-white text-gray-900">
       {/* 헤더 */}
       <header className="w-full border-b">
-        <div className="max-w-[1200px] mx-auto flex justify-between items-center py-4 px-6">
+        <div className="max-w-[1200px] mx-auto flex flex-wrap justify-between items-center py-4 px-6">
           <div className="font-bold text-lg text-blue-700">(재)수성미래교육재단</div>
-          <nav className="flex space-x-8 text-sm font-semibold">
+          <nav className="flex flex-wrap justify-center space-x-4 md:space-x-8 text-sm font-semibold mt-2 md:mt-0">
             <a href="#" className="hover:text-blue-600">관내 고등학교 안내</a>
             <a href="#" className="hover:text-blue-600">관내 고등학교 교육과정</a>
             <a href="#" className="hover:text-blue-600">대학별 입시정보</a>
@@ -40,37 +40,36 @@ export default function Home() {
       </header>
 
       {/* 메인 배너 */}
-      <section className="w-full bg-gray-100 py-10 border-b">
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6">
-          <div className="w-[60%] h-[200px] bg-gray-300 flex items-center justify-center text-lg font-medium">
+      <section className="w-full bg-gray-100 py-8 md:py-10 border-b">
+        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between px-6 gap-[25px]">
+          <div className="w-full md:w-[60%] h-[150px] md:h-[200px] bg-gray-300 flex items-center justify-center text-sm md:text-lg font-medium">
             배너 이미지 영역
           </div>
-          <div className="w-[35%] h-[200px] bg-gray-400 flex items-center justify-center text-white font-semibold">
+          <div className="w-full md:w-[35%] h-[150px] md:h-[200px] bg-gray-400 flex items-center justify-center text-white font-semibold">
             도시락 배너 영역
           </div>
         </div>
       </section>
 
       {/* 본문 콘텐츠 */}
-      <section className="max-w-[1200px] mx-auto py-12 flex flex-col items-center">
-        {/* 로고 + 지도 영역 */}
-        <div className="flex justify-between items-start w-full">
-          {/* 왼쪽 5개 */}
-          <div className="flex flex-col items-center space-y-[25px]">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="w-[125px] h-[80px] bg-gray-200 flex items-center justify-center rounded">
-                로고 {i + 1}
-              </div>
-            ))}
-          </div>
-
-          {/* 왼쪽 중간 4개 */}
-          <div className="flex flex-col items-center space-y-[25px]">
-            {[...Array(4)].map((_, i) => (
-              <div key={i + 5} className="w-[125px] h-[80px] bg-gray-200 flex items-center justify-center rounded">
-                로고 {i + 6}
-              </div>
-            ))}
+      <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col items-center">
+        <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start w-full gap-[25px]">
+          {/* 왼쪽 로고 블록 */}
+          <div className="flex flex-col lg:flex-col gap-[25px]">
+            <div className="flex justify-center flex-wrap gap-[25px]">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="w-[125px] h-[80px] bg-gray-200 flex items-center justify-center rounded text-sm">
+                  로고 {i + 1}
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center flex-wrap gap-[25px]">
+              {[...Array(4)].map((_, i) => (
+                <div key={i + 5} className="w-[125px] h-[80px] bg-gray-200 flex items-center justify-center rounded text-sm">
+                  로고 {i + 6}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* 지도 */}
@@ -78,34 +77,34 @@ export default function Home() {
             지도 영역
           </div>
 
-          {/* 오른쪽 중간 4개 */}
-          <div className="flex flex-col items-center space-y-[25px]">
-            {[...Array(4)].map((_, i) => (
-              <div key={i + 9} className="w-[125px] h-[80px] bg-gray-200 flex items-center justify-center rounded">
-                로고 {i + 10}
-              </div>
-            ))}
-          </div>
-
-          {/* 오른쪽 끝 4개 */}
-          <div className="flex flex-col items-center space-y-[25px]">
-            {[...Array(4)].map((_, i) => (
-              <div key={i + 13} className="w-[125px] h-[80px] bg-gray-200 flex items-center justify-center rounded">
-                로고 {i + 14}
-              </div>
-            ))}
+          {/* 오른쪽 로고 블록 */}
+          <div className="flex flex-col gap-[25px]">
+            <div className="flex justify-center flex-wrap gap-[25px]">
+              {[...Array(4)].map((_, i) => (
+                <div key={i + 9} className="w-[125px] h-[80px] bg-gray-200 flex items-center justify-center rounded text-sm">
+                  로고 {i + 10}
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center flex-wrap gap-[25px]">
+              {[...Array(4)].map((_, i) => (
+                <div key={i + 13} className="w-[125px] h-[80px] bg-gray-200 flex items-center justify-center rounded text-sm">
+                  로고 {i + 14}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 유관기관 슬라이드 영역 */}
+      {/* 유관기관 슬라이드 */}
       <section className="w-full bg-gray-100 py-8 border-t border-b">
         <div className="max-w-[1200px] mx-auto overflow-hidden" ref={scrollRef}>
-          <div className="flex space-x-6 w-max">
+          <div className="flex gap-[25px] w-max">
             {[...Array(10)].map((_, i) => (
               <div
                 key={i}
-                className="w-[200px] h-[100px] bg-gray-300 flex items-center justify-center rounded-md font-semibold text-gray-700 flex-shrink-0"
+                className="w-[150px] md:w-[200px] h-[80px] md:h-[100px] bg-gray-300 flex items-center justify-center rounded-md font-semibold text-gray-700 flex-shrink-0"
               >
                 유관기관 {i + 1}
               </div>
@@ -115,8 +114,8 @@ export default function Home() {
       </section>
 
       {/* 푸터 */}
-      <footer className="w-full bg-blue-900 text-white text-sm py-6 mt-8">
-        <div className="max-w-[1200px] mx-auto text-center leading-6 px-6">
+      <footer className="w-full bg-blue-900 text-white text-xs md:text-sm py-6 mt-8">
+        <div className="max-w-[1200px] mx-auto text-center leading-6 px-4 md:px-6">
           <p>[42027] 대구광역시 수성구 달구벌대로 2451(범어동) 범어도서관 5층 대표전화: 053)668-7311 / 팩스: 053)668-7399</p>
           <p className="mt-1">COPYRIGHT © Suseong Future Education Foundation. All Rights Reserved.</p>
         </div>
