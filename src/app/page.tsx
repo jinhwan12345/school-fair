@@ -34,8 +34,8 @@ export default function Home() {
 
           {/* 데스크톱 메뉴 */}
           <nav className="hidden md:flex space-x-8 text-sm font-semibold">
-            <a href="#" className="hover:text-blue-600">관내 고등학교 안내</a>
-            <a href="#" className="hover:text-blue-600">관내 고등학교 교육과정</a>
+            <a href="#" className="hover:text-blue-600">수성구 고등학교 안내</a>
+            <a href="#" className="hover:text-blue-600">수성구 고등학교 교육과정</a>
             <a href="#" className="hover:text-blue-600">대학별 입시정보</a>
             <a href="#" className="hover:text-blue-600">대학 입시 관련 TIP</a>
           </nav>
@@ -52,8 +52,8 @@ export default function Home() {
         {/* 모바일 메뉴 펼침 */}
         {menuOpen && (
           <div className="md:hidden bg-gray-50 border-t text-sm font-medium text-center py-3 space-y-2">
-            <a href="#" className="block hover:text-blue-600">관내 고등학교 안내</a>
-            <a href="#" className="block hover:text-blue-600">관내 고등학교 교육과정</a>
+            <a href="#" className="block hover:text-blue-600">수성구 고등학교 안내</a>
+            <a href="#" className="block hover:text-blue-600">수성구 고등학교 교육과정</a>
             <a href="#" className="block hover:text-blue-600">대학별 입시정보</a>
             <a href="#" className="block hover:text-blue-600">대학 입시 관련 TIP</a>
           </div>
