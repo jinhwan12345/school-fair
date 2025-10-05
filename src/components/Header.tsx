@@ -1,9 +1,18 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const menuItems = [
+    { name: "수성구 고등학교 안내", href: "/schools_info" },
+    { name: "수성구 고등학교 교육과정", href: "/curriculum" },
+    { name: "대학별 입시정보", href: "/admission_info" },
+    { name: "대학 입시 관련 TIP", href: "/tips" },
+  ];
 
   return (
     <header className="w-full border-b bg-white shadow-sm">
@@ -15,12 +24,17 @@ export default function Header() {
 
         {/* 데스크톱 메뉴 */}
         <nav className="hidden md:flex space-x-8 text-sm font-semibold">
-          <Link href="/schools_info" className="hover:text-[#2A7DE1]">
-            수성구 고등학교 안내
-          </Link>
-          <a href="#" className="hover:text-[#2A7DE1]">수성구 고등학교 교육과정</a>
-          <a href="#" className="hover:text-[#2A7DE1]">대학별 입시정보</a>
-          <a href="#" className="hover:text-[#2A7DE1]">대학 입시 관련 TIP</a>
+          {menuItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`hover:text-[#2A7DE1] transition-colors ${
+                pathname === item.href ? "text-[#2A7DE1]" : "text-gray-800"
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
         </nav>
 
         {/* 모바일 메뉴 버튼 */}
@@ -35,12 +49,18 @@ export default function Header() {
       {/* 모바일 메뉴 */}
       {menuOpen && (
         <div className="md:hidden bg-gray-50 border-t text-sm font-medium text-center py-3 space-y-2">
-          <Link href="/schools_info" className="block hover:text-[#2A7DE1]">
-            수성구 고등학교 안내
-          </Link>
-          <a href="#" className="block hover:text-[#2A7DE1]">수성구 고등학교 교육과정</a>
-          <a href="#" className="block hover:text-[#2A7DE1]">대학별 입시정보</a>
-          <a href="#" className="block hover:text-[#2A7DE1]">대학 입시 관련 TIP</a>
+          {menuItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`block py-1 hover:text-[#2A7DE1] ${
+                pathname === item.href ? "text-[#2A7DE1]" : "text-gray-800"
+              }`}
+              onClick={() => setMenuOpen(false)} // 클릭 시 메뉴 닫기
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
       )}
     </header>
