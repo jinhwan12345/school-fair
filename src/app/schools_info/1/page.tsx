@@ -53,15 +53,27 @@ export default function SchoolDetail() {
           <h2 className="font-bold text-base md:text-lg">{school.name}</h2>
         </div>
 
-        {/* 상세 정보 테이블 */}
-        <div className="grid grid-cols-2 gap-y-2 gap-x-6 text-sm md:text-[15px]">
-          {Object.entries(school.info).map(([label, value]) => (
-            <div key={label} className="flex">
-              <span className="font-semibold w-[100px] shrink-0">{label}</span>
-              <span className="text-gray-700">{value}</span>
-            </div>
-          ))}
-        </div>
+ {/* 상세 정보 테이블 */}
+            <div className="grid grid-cols-2 gap-y-2 gap-x-6 text-sm md:text-[15px]">
+                {Object.entries(school.info).map(([label, value]) => (
+                <div key={label} className="flex">
+                    <span className="font-semibold w-[100px] shrink-0">{label}</span>
+
+                        {label === "홈페이지" ? (
+                        <a
+                            href={value}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#2A7DE1] hover:underline break-all"
+                        >
+                    {value}
+                        </a>
+                        ) : (
+                    <span className="text-gray-700">{value}</span>
+                    )}
+                </div>
+                ))}
+                </div>  
       </section>
 
       {/* 상세 이미지 안내 */}
