@@ -36,9 +36,12 @@ export default function SchoolDetail() {
       <Header />
 
       {/* 상단 블루 타이틀 */}
-      <section className="w-full bg-[#2A7DE1] text-white py-3 text-left px-6 font-semibold text-sm md:text-base tracking-tight">
-        수성구 고등학교 안내 &gt; <span className="font-normal">{school.name}</span>
-      </section>
+        <section className="w-full bg-[#2A7DE1] text-white py-3 text-left font-semibold text-sm md:text-base tracking-tight">
+         <div className="max-w-[1200px] mx-auto px-6">
+           수성구 고등학교 안내 &gt; <span className="font-normal">{school.name}</span>
+         </div>
+        </section>
+
 
       {/* 학교 정보 */}
       <section className="max-w-[1000px] mx-auto flex flex-col md:flex-row items-center justify-start gap-10 py-10 px-6 border-b">
