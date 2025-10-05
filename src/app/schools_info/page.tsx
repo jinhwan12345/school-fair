@@ -46,7 +46,7 @@ export default function SchoolsInfo() {
         {schools.map((school, i) => (
           <Link
             key={i}
-            href={`/schools/${i + 1}`}
+            href={`/schools_info/${i + 1}`} // ✅ 상세 페이지로 이동 경로 수정
             className="group relative bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden 
                        hover:border-[#2A7DE1] transition-all duration-300 hover:shadow-lg"
           >
@@ -64,7 +64,9 @@ export default function SchoolsInfo() {
               </div>
 
               {/* 학교 정보 */}
-              <h3 className="text-base font-bold mb-1 text-gray-800">{school.name}</h3>
+              <h3 className="text-base font-bold mb-1 text-gray-800">
+                {school.name}
+              </h3>
               <p className="text-sm text-gray-500">고교유형 {school.type}</p>
               <p className="text-sm text-gray-500">설립구분 {school.establish}</p>
             </div>
