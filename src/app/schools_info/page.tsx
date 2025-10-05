@@ -30,11 +30,12 @@ export default function SchoolsInfo() {
       <Header />
 
       {/* 타이틀 */}
-      <section className="w-full bg-[#2A7DE1] text-white py-4 font-semibold text-lg tracking-tight">
-        <div className="max-w-[1200px] mx-auto px-6 text-left">
-          수성구 고등학교 안내
-        </div>
-      </section>
+        <section className="w-full bg-[#2A7DE1] text-white py-4 px-6 font-semibold text-lg tracking-tight">
+          <div className="max-w-[1200px] mx-auto text-left">
+            수성구 고등학교 안내
+          </div>
+        </section>
+
 
       {/* 검색결과 안내 */}
       <div className="max-w-[1200px] mx-auto px-6 mt-8 mb-2 text-gray-800 font-medium">
