@@ -30,8 +30,10 @@ export default function SchoolsInfo() {
       <Header />
 
       {/* 타이틀 */}
-      <section className="w-full bg-[#2A7DE1] text-white py-4 text-center font-semibold text-lg tracking-tight">
-        관내 고등학교 안내
+      <section className="w-full bg-[#2A7DE1] text-white py-4 font-semibold text-lg tracking-tight">
+        <div className="max-w-[1200px] mx-auto px-6 text-left">
+          수성구 고등학교 안내
+        </div>
       </section>
 
       {/* 검색결과 안내 */}
@@ -44,14 +46,14 @@ export default function SchoolsInfo() {
         {schools.map((school, i) => (
           <Link
             key={i}
-            href={`/schools/${i + 1}`} // 상세 페이지로 이동
+            href={`/schools/${i + 1}`}
             className="group relative bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden 
                        hover:border-[#2A7DE1] transition-all duration-300 hover:shadow-lg"
           >
             <div className="p-6">
-              {/* 로고 + 버튼 */}
-              <div className="flex justify-between items-start mb-4">
-                <div className="relative w-[90px] h-[90px]">
+              {/* 로고 */}
+              <div className="flex justify-center mb-4">
+                <div className="relative w-[100px] h-[100px]">
                   <Image
                     src={`/images/schools_logo/school${i + 1}.png`}
                     alt={school.name}
@@ -59,15 +61,10 @@ export default function SchoolsInfo() {
                     className="object-contain"
                   />
                 </div>
-                <button className="border border-[#2A7DE1] text-[#2A7DE1] text-xs font-semibold px-3 py-1 rounded-md 
-                                   hover:bg-[#2A7DE1] hover:text-white transition-all">
-                  함께보기
-                </button>
               </div>
 
               {/* 학교 정보 */}
               <h3 className="text-base font-bold mb-1 text-gray-800">{school.name}</h3>
-              <p className="text-sm text-gray-500">지역 대구광역시</p>
               <p className="text-sm text-gray-500">고교유형 {school.type}</p>
               <p className="text-sm text-gray-500">설립구분 {school.establish}</p>
             </div>
