@@ -70,10 +70,18 @@ export default function Home() {
           ))}
         </div>
 
-        {/* 중앙 지도 */}
-        <div className="flex justify-center items-center bg-gray-200 rounded-md w-full lg:w-[600px] h-[600px] text-gray-700 font-semibold">
-          지도 영역
+       {/* 중앙 지도 */}
+        <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] h-[600px] overflow-hidden shadow-sm">
+          <Image
+            src="/map.png" // ← public 폴더에 저장 시 이렇게 접근
+            alt="수성구 고등학교 지도"
+            width={600}
+            height={600}
+            className="object-contain w-full h-full"
+            priority
+          />
         </div>
+
 
         {/* 오른쪽 학교 리스트 */}
         <div className="flex flex-col gap-3 w-full lg:w-[220px]">
