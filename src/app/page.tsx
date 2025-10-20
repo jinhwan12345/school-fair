@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Header from "@/components/Header"; // ✅ 공통 헤더 불러오기
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,38 +28,8 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center bg-white text-gray-900">
-      {/* 헤더 */}
-      <header className="w-full border-b bg-white shadow-sm">
-        <div className="max-w-[1200px] mx-auto flex justify-between items-center py-4 px-6">
-          <div className="font-bold text-lg text-blue-700">수성고교정보 통합시스템</div>
-
-          {/* 데스크톱 메뉴 */}
-          <nav className="hidden md:flex space-x-8 text-sm font-semibold">
-            <a href="#" className="hover:text-blue-600">수성구 고등학교 안내</a>
-            <a href="#" className="hover:text-blue-600">수성구 고등학교 교육과정</a>
-            <a href="#" className="hover:text-blue-600">대학별 입시정보</a>
-            <a href="#" className="hover:text-blue-600">대학 입시 관련 TIP</a>
-          </nav>
-
-          {/* 모바일 메뉴 버튼 */}
-          <button
-            className="md:hidden text-gray-700 border rounded px-3 py-1"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            메뉴
-          </button>
-        </div>
-
-        {/* 모바일 메뉴 */}
-        {menuOpen && (
-          <div className="md:hidden bg-gray-50 border-t text-sm font-medium text-center py-3 space-y-2">
-            <a href="#" className="block hover:text-blue-600">수성구 고등학교 안내</a>
-            <a href="#" className="block hover:text-blue-600">수성구 고등학교 교육과정</a>
-            <a href="#" className="block hover:text-blue-600">대학별 입시정보</a>
-            <a href="#" className="block hover:text-blue-600">대학 입시 관련 TIP</a>
-          </div>
-        )}
-      </header>
+      {/* ✅ 공통 헤더 불러오기 */}
+      <Header />
 
       {/* ✅ 메인 배너 */}
       <section className="w-full border-b">
