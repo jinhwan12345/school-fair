@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -17,9 +18,15 @@ export default function Header() {
   return (
     <header className="w-full border-b bg-white shadow-sm">
       <div className="max-w-[1200px] mx-auto flex justify-between items-center py-4 px-6">
-        {/* 로고 클릭 시 홈으로 이동 */}
-        <Link href="/" className="font-bold text-lg text-[#2A7DE1] hover:opacity-80">
-          (재)수성미래교육재단
+        {/* ✅ 로고 클릭 시 홈으로 이동 */}
+        <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+          <Image
+            src="/logo.png" // public 폴더 기준 경로
+            alt="수성고교정보 통합시스템 로고"
+            width={180}
+            height={50}
+            priority
+          />
         </Link>
 
         {/* 데스크톱 메뉴 */}
