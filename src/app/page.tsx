@@ -46,9 +46,9 @@ export default function Home() {
       </section>
 
       {/* ✅ 학교 카드 + 지도 영역 */}
-      <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
+     <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
         {/* 왼쪽 학교 리스트 */}
-        <div className="flex flex-col gap-3 w-full lg:w-[220px]">
+        <div className="flex flex-col gap-3 w-full lg:w-[220px] h-[600px] overflow-y-auto">
           {[
             "경북고등학교",
             "농업고등학교",
@@ -70,10 +70,10 @@ export default function Home() {
           ))}
         </div>
 
-       {/* 중앙 지도 */}
+        {/* 중앙 지도 */}
         <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] h-[600px] overflow-hidden shadow-sm">
           <Image
-            src="/map.png" // ← public 폴더에 저장 시 이렇게 접근
+            src="/map.png"
             alt="수성구 고등학교 지도"
             width={600}
             height={600}
@@ -82,9 +82,8 @@ export default function Home() {
           />
         </div>
 
-
         {/* 오른쪽 학교 리스트 */}
-        <div className="flex flex-col gap-3 w-full lg:w-[220px]">
+        <div className="flex flex-col gap-3 w-full lg:w-[220px] h-[600px] overflow-y-auto">
           {[
             "경신고등학교",
             "대구국제고등학교",
@@ -105,6 +104,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+
 
       {/* 유관기관 슬라이드 */}
       <section className="hidden lg:block w-full bg-gray-100 py-8 border-t border-b">
