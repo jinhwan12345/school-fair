@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
@@ -7,10 +6,16 @@ export default function PopupModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const popupSeen = localStorage.getItem("popupSeen");
-    if (!popupSeen) {
+    // 오늘 날짜(예: 2025-10-21)
+    const today = new Date().toISOString().split("T")[0];
+
+    // localStorage에서 마지막으로 본 날짜 가져오기
+    const lastShown = localStorage.getItem("popupLastShown");
+
+    // 오늘 본 적이 없다면 팝업 표시
+    if (lastShown !== today) {
       setIsOpen(true);
-      localStorage.setItem("popupSeen", "true");
+      localStorage.setItem("popupLastShown", today);
     }
   }, []);
 
@@ -27,7 +32,7 @@ export default function PopupModal() {
           ✕
         </button>
 
-        {/* 팝업 이미지 */}
+        {/* 팝업 이미지 클릭 시 설문 링크로 이동 */}
         <a
           href="https://forms.gle/9S729KHYFbtkzsJt9"
           target="_blank"
