@@ -95,7 +95,7 @@ export default function Home() {
       <Header />
 
       {/* ✅ 메인 배너 */}
-      <section className="w-full border-b">
+      <section className="w-full">
         <Image
           src="/banner.png"
           alt="수성고교정보 통합 배너"
@@ -179,7 +179,7 @@ export default function Home() {
 
 
       {/* ✅ 유관기관 슬라이드 */}
-      <section className="hidden lg:block w-full bg-gray-100 py-8 border-t border-b">
+      <section className="hidden lg:block w-full bg-gray-100 py-8">
         <div className="max-w-[1200px] mx-auto overflow-hidden" ref={scrollRef}>
           <div className="flex gap-[25px] w-max">
             {[...Array(10)].map((_, i) => (

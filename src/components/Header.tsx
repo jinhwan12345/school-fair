@@ -16,7 +16,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="w-full border-b bg-white shadow-sm">
+    <header className="w-full bg-white shadow-sm">
       <div className="max-w-[1200px] mx-auto flex justify-between items-center py-4 px-6">
         {/* ✅ 로고 클릭 시 홈으로 이동 */}
         <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
