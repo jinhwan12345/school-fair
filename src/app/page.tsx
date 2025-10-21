@@ -1,18 +1,19 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Header from "@/components/Header"; // ✅ 공통 헤더 불러오기
 
 export default function Home() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const pathname = usePathname(); // ✅ 현재 경로 확인용
   const [activeSchool, setActiveSchool] = useState<string | null>(null);
 
+  // ✅ 페이지 이동 시 자동 스크롤 애니메이션
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
-
     let animationFrame: number;
     const speed = 1;
 
@@ -24,13 +25,23 @@ export default function Home() {
       }
       animationFrame = requestAnimationFrame(scroll);
     };
-
     animationFrame = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(animationFrame);
   }, []);
 
+  // ✅ 현재 페이지 기반으로 활성화 상태 관리
+  useEffect(() => {
+    if (pathname.startsWith("/schools/")) {
+      const schoolPath = pathname.split("/")[2];
+      setActiveSchool(schoolPath);
+    } else {
+      // 홈으로 돌아오면 초기화
+      setActiveSchool(null);
+    }
+  }, [pathname]);
+
+  // ✅ 버튼 클릭 시 페이지 이동
   const handleClick = (engName: string) => {
-    setActiveSchool(engName);
     router.push(`/schools/${engName}`);
   };
 
@@ -100,9 +111,29 @@ export default function Home() {
       {/* ✅ 학교 카드 + 지도 영역 */}
       <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
         {/* 왼쪽 학교 리스트 */}
-        <div className="flex flex-col gap-3 w-full lg:w-[220px] h-[600px] overflow-y-auto">
-          {schoolsLeft.map(renderSchoolButton)}
-        </div>
+          <div className="flex flex-col justify-between w-full lg:w-[220px] h-[600px]">
+            {schoolsLeft.map((school) => (
+              <button
+                key={school.engName}
+                onClick={() => handleClick(school.engName)}
+                className={`flex items-center justify-between border rounded-md px-3 h-[65px] shadow-sm transition ${
+                  activeSchool === school.engName
+                    ? "bg-[#2a7de1] text-white"
+                    : "bg-white hover:bg-[#f3bd8c] hover:text-white"
+                }`}
+              >
+                <span className="text-sm font-medium">{school.name}</span>
+                <Image
+                  src={`/schools/${school.engName}/logo.png`}
+                  alt={`${school.name} 로고`}
+                  width={24}
+                  height={24}
+                  className="ml-2"
+                />
+              </button>
+            ))}
+          </div>
+
 
         {/* 중앙 지도 */}
         <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] h-[600px] overflow-hidden shadow-sm">
@@ -117,8 +148,27 @@ export default function Home() {
         </div>
 
         {/* 오른쪽 학교 리스트 */}
-        <div className="flex flex-col gap-3 w-full lg:w-[220px] h-[600px] overflow-y-auto">
-          {schoolsRight.map(renderSchoolButton)}
+        <div className="flex flex-col justify-between w-full lg:w-[220px] h-[600px]">
+          {schoolsRight.map((school) => (
+            <button
+              key={school.engName}
+              onClick={() => handleClick(school.engName)}
+              className={`flex items-center justify-between border rounded-md px-3 h-[75px] shadow-sm transition ${
+                activeSchool === school.engName
+                  ? "bg-[#2a7de1] text-white"
+                  : "bg-white hover:bg-[#f3bd8c] hover:text-white"
+              }`}
+            >
+              <span className="text-sm font-medium">{school.name}</span>
+              <Image
+                src={`/schools/${school.engName}/logo.png`}
+                alt={`${school.name} 로고`}
+                width={24}
+                height={24}
+                className="ml-2"
+              />
+            </button>
+          ))}
         </div>
       </section>
 
