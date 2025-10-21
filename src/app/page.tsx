@@ -115,10 +115,10 @@ export default function Home() {
           <button
             key={school.engName}
             onClick={() => handleClick(school.engName)}
-            className={`flex items-center justify-between border-[0.5px] rounded-md px-3 h-[60px] shadow-sm transition-colors duration-200 ${
+            className={`flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] shadow-sm transition-colors duration-200 ${
               activeSchool === school.engName
                 ? "bg-[#2a7de1] text-white"
-                : "bg-[#969696] text-white hover:bg-[#f3bd8c]"
+                : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
             }`}
           >
             <span className="text-sm font-medium">{school.name}</span>
@@ -134,7 +134,7 @@ export default function Home() {
       </div>
 
       {/* 중앙 지도 */}
-      <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] overflow-hidden shadow-sm">
+      <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] h-[600px] overflow-hidden shadow-sm">
         <Image
           src="/map.png"
           alt="수성구 고등학교 지도"
@@ -146,16 +146,20 @@ export default function Home() {
       </div>
 
       {/* 오른쪽 학교 리스트 */}
-      {/* 왼쪽과 동일한 간격을 주기 위해 space-y 사용 */}
-      <div className="flex flex-col justify-start w-full lg:w-[220px] space-y-[13px]">
+      <div
+        className="flex flex-col justify-between w-full lg:w-[220px]"
+        style={{
+          height: "calc(60px * 8 + (600px - 60px * 9) / 8 * 8)", // 왼쪽 리스트 간격에 맞춤
+        }}
+      >
         {schoolsRight.map((school) => (
           <button
             key={school.engName}
             onClick={() => handleClick(school.engName)}
-            className={`flex items-center justify-between border-[0.5px] rounded-md px-3 h-[60px] shadow-sm transition-colors duration-200 ${
+            className={`flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] shadow-sm transition-colors duration-200 ${
               activeSchool === school.engName
                 ? "bg-[#2a7de1] text-white"
-                : "bg-[#969696] text-white hover:bg-[#f3bd8c]"
+                : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
             }`}
           >
             <span className="text-sm font-medium">{school.name}</span>
@@ -170,6 +174,8 @@ export default function Home() {
         ))}
       </div>
     </section>
+
+
 
 
       {/* ✅ 유관기관 슬라이드 */}
