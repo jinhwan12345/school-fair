@@ -6,7 +6,7 @@ export const schoolsData = [
     mainImage: "/schools/kyungbuk/main.png.png",
     info: {
       주소: "대구광역시 수성구 청호로 300 (황금동,경북고등학교)",
-      홈페이지: "https://gyeongsin.dge.hs.kr/",
+      홈페이지: "https://kyeongbuk.dge.hs.kr/",
       "고교 유형": "일반",
       "남녀 구분": "남",
       "선발 시기": "후기",

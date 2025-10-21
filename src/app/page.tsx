@@ -109,67 +109,68 @@ export default function Home() {
 
       {/* ✅ 학교 카드 + 지도 영역 */}
       <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
-        {/* 왼쪽 학교 리스트 */}
-          <div className="flex flex-col justify-between w-full lg:w-[220px] h-[600px]">
-            {schoolsLeft.map((school) => (
-              <button
-                key={school.engName}
-                onClick={() => handleClick(school.engName)}
-                className={`flex items-center justify-between border rounded-md px-3 h-[65px] shadow-sm transition ${
-                  activeSchool === school.engName
-                    ? "bg-[#2a7de1] text-white"
-                    : "bg-white hover:bg-[#f3bd8c] hover:text-white"
-                }`}
-              >
-                <span className="text-sm font-medium">{school.name}</span>
-                <Image
-                  src={`/schools/${school.engName}/logo.png`}
-                  alt={`${school.name} 로고`}
-                  width={24}
-                  height={24}
-                  className="ml-2"
-                />
-              </button>
-            ))}
-          </div>
+      {/* 왼쪽 학교 리스트 */}
+      <div className="flex flex-col justify-between w-full lg:w-[220px] h-[600px]">
+        {schoolsLeft.map((school) => (
+          <button
+            key={school.engName}
+            onClick={() => handleClick(school.engName)}
+            className={`flex items-center justify-between border-[0.5px] rounded-md px-3 h-[60px] shadow-sm transition-colors duration-200 ${
+              activeSchool === school.engName
+                ? "bg-[#2a7de1] text-white"
+                : "bg-[#969696] text-white hover:bg-[#f3bd8c]"
+            }`}
+          >
+            <span className="text-sm font-medium">{school.name}</span>
+            <Image
+              src={`/schools/${school.engName}/logo.png`}
+              alt={`${school.name} 로고`}
+              width={24}
+              height={24}
+              className="ml-2"
+            />
+          </button>
+        ))}
+      </div>
 
+      {/* 중앙 지도 */}
+      <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] overflow-hidden shadow-sm">
+        <Image
+          src="/map.png"
+          alt="수성구 고등학교 지도"
+          width={600}
+          height={600}
+          className="object-contain w-full h-full"
+          priority
+        />
+      </div>
 
-        {/* 중앙 지도 */}
-        <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] h-[600px] overflow-hidden shadow-sm">
-          <Image
-            src="/map.png"
-            alt="수성구 고등학교 지도"
-            width={600}
-            height={600}
-            className="object-contain w-full h-full"
-            priority
-          />
-        </div>
+      {/* 오른쪽 학교 리스트 */}
+      {/* 왼쪽과 동일한 간격을 주기 위해 space-y 사용 */}
+      <div className="flex flex-col justify-start w-full lg:w-[220px] space-y-[13px]">
+        {schoolsRight.map((school) => (
+          <button
+            key={school.engName}
+            onClick={() => handleClick(school.engName)}
+            className={`flex items-center justify-between border-[0.5px] rounded-md px-3 h-[60px] shadow-sm transition-colors duration-200 ${
+              activeSchool === school.engName
+                ? "bg-[#2a7de1] text-white"
+                : "bg-[#969696] text-white hover:bg-[#f3bd8c]"
+            }`}
+          >
+            <span className="text-sm font-medium">{school.name}</span>
+            <Image
+              src={`/schools/${school.engName}/logo.png`}
+              alt={`${school.name} 로고`}
+              width={24}
+              height={24}
+              className="ml-2"
+            />
+          </button>
+        ))}
+      </div>
+    </section>
 
-        {/* 오른쪽 학교 리스트 */}
-        <div className="flex flex-col justify-between w-full lg:w-[220px] h-[600px]">
-          {schoolsRight.map((school) => (
-            <button
-              key={school.engName}
-              onClick={() => handleClick(school.engName)}
-              className={`flex items-center justify-between border rounded-md px-3 h-[75px] shadow-sm transition ${
-                activeSchool === school.engName
-                  ? "bg-[#2a7de1] text-white"
-                  : "bg-white hover:bg-[#f3bd8c] hover:text-white"
-              }`}
-            >
-              <span className="text-sm font-medium">{school.name}</span>
-              <Image
-                src={`/schools/${school.engName}/logo.png`}
-                alt={`${school.name} 로고`}
-                width={24}
-                height={24}
-                className="ml-2"
-              />
-            </button>
-          ))}
-        </div>
-      </section>
 
       {/* ✅ 유관기관 슬라이드 */}
       <section className="hidden lg:block w-full bg-gray-100 py-8 border-t border-b">
