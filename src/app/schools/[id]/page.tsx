@@ -65,16 +65,19 @@ export default function SchoolDetail({ params }: SchoolDetailProps) {
       </section>
 
       {/* ✅ 상세 이미지 */}
-      <section className="max-w-[1000px] mx-auto py-10 px-6 flex flex-col items-center">
-        <div className="relative w-full h-[600px] border rounded-lg overflow-hidden shadow-sm">
-          <Image
+        <section className="max-w-[1000px] mx-auto py-10 px-6 flex flex-col items-center">
+        <div className="w-full border rounded-lg overflow-hidden shadow-sm">
+            <Image
             src={detailImagePath}
             alt={`${school.name} 상세 이미지`}
-            fill
-            className="object-contain"
-          />
+            width={1000} // 콘텐츠 영역 폭
+            height={0}   // 비율 자동 조정
+            sizes="100vw"
+            style={{ width: "100%", height: "auto" }} // ✅ 폭 맞추고 높이는 자동
+            className="object-cover"
+            />
         </div>
-      </section>
+        </section>
 
       {/* 돌아가기 버튼 */}
       <div className="flex justify-center mb-12">
