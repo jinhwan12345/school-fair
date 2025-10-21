@@ -83,9 +83,9 @@ export default function CurriculumPage() {
         </div>
 
         {/* ✅ 오른쪽 학교 리스트 */}
-        <div className="flex justify-between w-full lg:w-[480px] items-start">
+        <div className="flex justify-between w-full lg:w-[560px] items-start">
             {/* 왼쪽 9개 */}
-            <div className="flex flex-col justify-between w-[220px] h-[620px]">
+            <div className="flex flex-col justify-between w-[270px] h-[620px]">
             {schoolsLeft.map((school) => (
                 <div
                 key={school.eng}
@@ -119,7 +119,7 @@ export default function CurriculumPage() {
             </div>
 
             {/* 오른쪽 8개 (위쪽 정렬) */}
-            <div className="flex flex-col w-[220px] items-stretch">
+            <div className="flex flex-col w-[270px] items-stretch">
             {schoolsRight.map((school) => (
                 <div
                 key={school.eng}
