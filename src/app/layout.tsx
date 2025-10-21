@@ -15,6 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "수성고교정보 통합시스템",
   description: "수성구 관내 고등학교 정보 통합시스템",
+  openGraph: {
+    title: "대구 수성구 고교 정보 통합 플랫폼",
+    description: "정확하고 빠른 길잡기, 수성구 고등학교 정보 탐색의 시작!",
+    url: "https://www.esuseonghs.or.kr/",
+    siteName: "수성고교정보 통합시스템",
+    locale: "ko_KR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
