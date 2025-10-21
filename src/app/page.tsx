@@ -1,10 +1,13 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header"; // ✅ 공통 헤더 불러오기
 
 export default function Home() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const [activeSchool, setActiveSchool] = useState<string | null>(null);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -26,9 +29,58 @@ export default function Home() {
     return () => cancelAnimationFrame(animationFrame);
   }, []);
 
+  const handleClick = (engName: string) => {
+    setActiveSchool(engName);
+    router.push(`/schools/${engName}`);
+  };
+
+  const renderSchoolButton = (school: { name: string; engName: string }) => (
+    <button
+      key={school.engName}
+      onClick={() => handleClick(school.engName)}
+      className={`flex items-center justify-between border rounded-md px-3 py-2 shadow-sm transition ${
+        activeSchool === school.engName
+          ? "bg-[#2a7de1] text-white"
+          : "bg-white hover:bg-[#f3bd8c] hover:text-white"
+      }`}
+    >
+      <span className="text-sm font-medium">{school.name}</span>
+      <Image
+        src={`/schools/${school.engName}/logo.png`}
+        alt={`${school.name} 로고`}
+        width={24}
+        height={24}
+        className="ml-2"
+      />
+    </button>
+  );
+
+  const schoolsLeft = [
+    { name: "경북고등학교", engName: "kyungbuk" },
+    { name: "능인고등학교", engName: "neungin" },
+    { name: "대구남산고등학교", engName: "namsan" },
+    { name: "대구여자고등학교", engName: "daegu-girls" },
+    { name: "대구혜화여자고등학교", engName: "hyehwa" },
+    { name: "덕원고등학교", engName: "deokwon" },
+    { name: "수성고등학교", engName: "suseong" },
+    { name: "영남공업고등학교", engName: "yeongnam-tech" },
+    { name: "정화여자고등학교", engName: "junghwa" },
+  ];
+
+  const schoolsRight = [
+    { name: "경신고등학교", engName: "kyungshin" },
+    { name: "대구과학고등학교", engName: "daegu-science" },
+    { name: "대구농업마이스터고등학교", engName: "daegu-agri-meister" },
+    { name: "대구중앙고등학교", engName: "daegu-jungang" },
+    { name: "대륜고등학교", engName: "daeryun" },
+    { name: "동문고등학교", engName: "dongmun" },
+    { name: "시지고등학교", engName: "siji" },
+    { name: "오성고등학교", engName: "oseong" },
+  ];
+
   return (
     <main className="flex flex-col items-center bg-white text-gray-900">
-      {/* ✅ 공통 헤더 불러오기 */}
+      {/* ✅ 공통 헤더 */}
       <Header />
 
       {/* ✅ 메인 배너 */}
@@ -46,28 +98,10 @@ export default function Home() {
       </section>
 
       {/* ✅ 학교 카드 + 지도 영역 */}
-     <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
+      <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
         {/* 왼쪽 학교 리스트 */}
         <div className="flex flex-col gap-3 w-full lg:w-[220px] h-[600px] overflow-y-auto">
-          {[
-            "경북고등학교",
-            "농업고등학교",
-            "대구남산고등학교",
-            "대구여자고등학교",
-            "대구혜화여자고등학교",
-            "연덕고등학교",
-            "수성고등학교",
-            "영남공업고등학교",
-            "정화여자고등학교",
-          ].map((name, i) => (
-            <button
-              key={i}
-              className="flex items-center justify-between border rounded-md px-3 py-2 bg-white shadow-sm hover:bg-blue-50 transition"
-            >
-              <span className="text-sm font-medium">{name}</span>
-              <span className="text-gray-400 text-xs">▶</span>
-            </button>
-          ))}
+          {schoolsLeft.map(renderSchoolButton)}
         </div>
 
         {/* 중앙 지도 */}
@@ -84,29 +118,11 @@ export default function Home() {
 
         {/* 오른쪽 학교 리스트 */}
         <div className="flex flex-col gap-3 w-full lg:w-[220px] h-[600px] overflow-y-auto">
-          {[
-            "경신고등학교",
-            "대구국제고등학교",
-            "대구농업마이스터고등학교",
-            "대구융합고등학교",
-            "대륜고등학교",
-            "동문고등학교",
-            "시지고등학교",
-            "오성고등학교",
-          ].map((name, i) => (
-            <button
-              key={i}
-              className="flex items-center justify-between border rounded-md px-3 py-2 bg-white shadow-sm hover:bg-blue-50 transition"
-            >
-              <span className="text-sm font-medium">{name}</span>
-              <span className="text-gray-400 text-xs">▶</span>
-            </button>
-          ))}
+          {schoolsRight.map(renderSchoolButton)}
         </div>
       </section>
 
-
-      {/* 유관기관 슬라이드 */}
+      {/* ✅ 유관기관 슬라이드 */}
       <section className="hidden lg:block w-full bg-gray-100 py-8 border-t border-b">
         <div className="max-w-[1200px] mx-auto overflow-hidden" ref={scrollRef}>
           <div className="flex gap-[25px] w-max">
@@ -122,7 +138,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 푸터 */}
+      {/* ✅ 푸터 */}
       <footer className="w-full bg-[#2A7DE1] text-white text-xs md:text-sm py-6 mt-8">
         <div className="max-w-[1200px] mx-auto text-center leading-6 px-4 md:px-6">
           <p>
