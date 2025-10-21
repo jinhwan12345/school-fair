@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { schoolsData } from "@/app/data/schoolsData";
 import Header from "@/components/Header";
 
-// ✅ params 타입 명시
 interface SchoolDetailProps {
   params: {
     id: string;
@@ -17,85 +16,75 @@ export default function SchoolDetail({ params }: SchoolDetailProps) {
 
   if (!school) return notFound();
 
-  const infoEntries = Object.entries(school.info);
+  // ✅ main.png.png 대응 처리
+  const detailImagePath = school.mainImage.replace(".png", ".png.png");
 
   return (
-    <main className="bg-[#f9f9f9] min-h-screen font-['Noto_Sans_KR'] text-gray-900">
+    <main className="bg-white min-h-screen font-['Noto_Sans_KR'] text-gray-900">
       <Header />
 
       {/* 상단 타이틀 */}
-      <section className="w-full bg-[#2A7DE1] text-white py-4 font-semibold text-lg tracking-tight">
-        <div className="max-w-[1200px] mx-auto px-6">{school.name}</div>
-      </section>
-
-      {/* 메인 콘텐츠 */}
-      <section className="max-w-[1200px] mx-auto px-6 py-10">
-        <div className="flex flex-col lg:flex-row items-start gap-10">
-          {/* 왼쪽: 학교 대표 이미지 + 로고 */}
-          <div className="flex flex-col items-center w-full lg:w-1/2">
-            <div className="relative w-full h-[300px] mb-6">
-              <Image
-                src={school.mainImage}
-                alt={`${school.name} 대표 이미지`}
-                fill
-                className="object-contain rounded-md border"
-              />
-            </div>
-
-            <div className="relative w-[120px] h-[120px]">
-              <Image
-                src={school.logo}
-                alt={`${school.name} 로고`}
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
-
-          {/* 오른쪽: 정보 표 */}
-          <div className="w-full lg:w-1/2 bg-white shadow-sm rounded-xl border border-gray-200 overflow-hidden">
-            <table className="w-full text-sm border-collapse">
-              <tbody>
-                {infoEntries.map(([key, value], index) => (
-                  <tr
-                    key={index}
-                    className={`border-b ${
-                      index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                    }`}
-                  >
-                    <td className="py-3 px-4 font-medium text-gray-700 w-1/3">
-                      {key}
-                    </td>
-                    <td className="py-3 px-4 text-gray-600">{value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* ✅ 표 하단 상세 이미지 추가 */}
-        <div className="mt-12 w-full flex justify-center">
-          <div className="relative w-full max-w-[900px] h-[500px] border rounded-lg overflow-hidden shadow-sm">
-            <Image
-              src={school.mainImage}
-              alt={`${school.name} 상세 이미지`}
-              fill
-              className="object-contain"
-            />
-          </div>
-        </div>
-
-        {/* 돌아가기 버튼 */}
-        <div className="flex justify-center mt-10">
-          <Link
-            href="/schools_info"
-            className="bg-[#2A7DE1] hover:bg-[#1f6bc2] text-white text-sm font-semibold px-6 py-2.5 rounded-md transition-colors"
-          >
-            ← 학교 목록으로 돌아가기
-          </Link>
+      <section className="w-full bg-[#2A7DE1] text-white py-3 text-left font-semibold text-sm md:text-base tracking-tight">
+        <div className="max-w-[1200px] mx-auto px-6">
+          수성구 고등학교 안내 &gt; <span className="font-normal">{school.name}</span>
         </div>
       </section>
+
+      {/* 본문: 로고 + 정보 */}
+      <section className="max-w-[1000px] mx-auto flex flex-col md:flex-row items-start justify-start gap-10 py-10 px-6 border-b">
+        {/* 로고 */}
+        <div className="flex flex-col items-center justify-center w-full md:w-1/3">
+          <div className="relative w-[200px] h-[200px] mb-3 border">
+            <Image src={school.logo} alt={school.name} fill className="object-contain" />
+          </div>
+          <h2 className="font-bold text-lg text-[#2A7DE1] mt-2">
+            ■ {school.name}
+          </h2>
+        </div>
+
+        {/* 표 */}
+        <div className="grid grid-cols-2 gap-y-3 gap-x-6 text-sm md:text-[15px] w-full md:w-2/3">
+          {Object.entries(school.info).map(([label, value]) => (
+            <div key={label} className="flex items-start">
+              <span className="font-semibold w-[100px] shrink-0 text-gray-700">{label}</span>
+              {label === "홈페이지" ? (
+                <a
+                  href={value}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#2A7DE1] hover:underline break-all"
+                >
+                  {value}
+                </a>
+              ) : (
+                <span className="text-gray-700">{value}</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ✅ 상세 이미지 */}
+      <section className="max-w-[1000px] mx-auto py-10 px-6 flex flex-col items-center">
+        <div className="relative w-full h-[600px] border rounded-lg overflow-hidden shadow-sm">
+          <Image
+            src={detailImagePath}
+            alt={`${school.name} 상세 이미지`}
+            fill
+            className="object-contain"
+          />
+        </div>
+      </section>
+
+      {/* 돌아가기 버튼 */}
+      <div className="flex justify-center mb-12">
+        <Link
+          href="/schools_info"
+          className="bg-[#2A7DE1] hover:bg-[#1f6bc2] text-white text-sm font-semibold px-6 py-2.5 rounded-md transition-colors"
+        >
+          ← 학교 목록으로 돌아가기
+        </Link>
+      </div>
 
       {/* 푸터 */}
       <footer className="w-full bg-[#2A7DE1] text-white text-xs md:text-sm py-6 mt-8">
