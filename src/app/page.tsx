@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import Header from "@/components/Header"; // ✅ 공통 헤더 불러오기
 import PopupModal from "@/components/PopupModal";
+import { agencies } from "@/app/data/agencyData";
+
 
 
 export default function Home() {
@@ -183,17 +185,28 @@ export default function Home() {
 
 
 
-      {/* ✅ 유관기관 슬라이드 */}
+     {/* ✅ 유관기관 슬라이드 */}
       <section className="hidden lg:block w-full py-8">
         <div className="max-w-[1200px] mx-auto overflow-hidden" ref={scrollRef}>
-          <div className="flex gap-[25px] w-max">
-            {[...Array(10)].map((_, i) => (
-              <div
-                key={i}
-                className="w-[150px] h-[80px] bg-gray-300 flex items-center justify-center rounded-md font-semibold text-gray-700 flex-shrink-0"
+          <div className="flex gap-[30px] items-center w-max">
+            {agencies.map((agency) => (
+              <a
+                key={agency.name}
+                href={agency.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center h-[80px] px-4 bg-white border border-gray-200 rounded-md shadow-sm hover:shadow-md transition-transform duration-200 hover:scale-105 flex-shrink-0"
+                style={{ minWidth: "fit-content" }}
               >
-                유관기관 {i + 1}
-              </div>
+                <Image
+                  src={agency.logo}
+                  alt={agency.name}
+                  width={140}
+                  height={80}
+                  className="object-contain w-auto h-[60px]"
+                  priority
+                />
+              </a>
             ))}
           </div>
         </div>
