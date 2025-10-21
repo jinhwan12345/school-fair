@@ -17,7 +17,9 @@ export default function SchoolDetail({ params }: SchoolDetailProps) {
   if (!school) return notFound();
 
   // ✅ main.png.png 대응 처리
-  const detailImagePath = school.mainImage.replace(".png", ".png.png");
+  const detailImagePath = school.mainImage.endsWith(".png.png")
+  ? school.mainImage
+  : school.mainImage.replace(".png", ".png.png");
 
   return (
     <main className="bg-white min-h-screen font-['Noto_Sans_KR'] text-gray-900">
