@@ -33,13 +33,13 @@ export default function SchoolDetail({ params }: SchoolDetailProps) {
       </section>
 
       {/* 본문: 로고 + 정보 */}
-      <section className="max-w-[1000px] mx-auto flex flex-col md:flex-row items-start justify-start gap-10 py-10 px-6 border-b">
+      <section className="max-w-[1000px] mx-auto flex flex-col md:flex-row items-start justify-start gap-10 py-10 px-6">
         {/* 로고 */}
         <div className="flex flex-col items-center justify-center w-full md:w-1/3">
           <div className="relative w-[200px] h-[200px] mb-3 border">
             <Image src={school.logo} alt={school.name} fill className="object-contain" />
           </div>
-          <h2 className="font-bold text-lg text-[#2A7DE1] mt-2">
+          <h2 className="font-bold text-lg text-[#0f0c57] mt-2">
             ■ {school.name}
           </h2>
         </div>
@@ -68,7 +68,7 @@ export default function SchoolDetail({ params }: SchoolDetailProps) {
 
       {/* ✅ 상세 이미지 */}
         <section className="max-w-[1000px] mx-auto py-10 px-6 flex flex-col items-center">
-        <div className="w-full border rounded-lg overflow-hidden shadow-sm">
+        <div className="w-full rounded-lg overflow-hidden shadow-sm">
             <Image
             src={detailImagePath}
             alt={`${school.name} 상세 이미지`}
@@ -85,7 +85,7 @@ export default function SchoolDetail({ params }: SchoolDetailProps) {
       <div className="flex justify-center mb-12">
         <Link
           href="/schools_info"
-          className="bg-[#2A7DE1] hover:bg-[#1f6bc2] text-white text-sm font-semibold px-6 py-2.5 rounded-md transition-colors"
+          className="bg-[#1f6bc2] hover:bg-[#0f0c57] text-white text-sm font-semibold px-6 py-2.5 rounded-md transition-colors"
         >
           ← 학교 목록으로 돌아가기
         </Link>
