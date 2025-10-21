@@ -33,10 +33,10 @@ export default function SchoolDetail({ params }: SchoolDetailProps) {
       </section>
 
       {/* 본문: 로고 + 정보 */}
-      <section className="max-w-[1000px] mx-auto flex flex-col md:flex-row items-start justify-start gap-10 py-10 px-6">
+      <section className="max-w-[1000px] mx-auto flex flex-col md:flex-row items-start justify-start gap-5 py-10 px-6">
         {/* 로고 */}
         <div className="flex flex-col items-center justify-center w-full md:w-1/3">
-          <div className="relative w-[200px] h-[200px] mb-3 border">
+          <div className="relative w-[200px] h-[200px] mb-3">
             <Image src={school.logo} alt={school.name} fill className="object-contain" />
           </div>
           <h2 className="font-bold text-lg text-[#0f0c57] mt-2">
