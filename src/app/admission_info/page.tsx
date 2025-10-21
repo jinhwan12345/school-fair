@@ -39,7 +39,7 @@ export default function AdmissionInfoPage() {
                 </span>
 
                 {/* 제목 */}
-                <span className="text-gray-900 text-base font-semibold">
+                <span className="text-gray-900 text-center font-semibold">
                   {u.title}
                 </span>
               </div>
