@@ -51,7 +51,7 @@ export default function AdmissionInfoPage() {
                 href={u.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#2A7DE1] border border-[#2A7DE1] rounded-full px-3 py-1 text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition"
+                className="text-[#2A7DE1] border border-[#2A7DE1] rounded-full px-3 py-1 text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition whitespace-nowrap"
               >
                 바로가기
               </a>
