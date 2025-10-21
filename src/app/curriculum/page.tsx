@@ -104,17 +104,21 @@ export default function CurriculumPage() {
                 <a
                     href={`/curriculum/${school.eng}.pdf`}
                     download
-                    className="text-[#2A7DE1] hover:text-[#f3bd8c] text-lg transition"
+                    className="hover:opacity-70 transition"
                     aria-label="교육과정 다운로드"
                 >
-                    ⤓
+                    <Image
+                    src="/icons/download_icon.svg"
+                    alt="다운로드 아이콘"
+                    width={18}
+                    height={18}
+                    />
                 </a>
                 </div>
             ))}
             </div>
 
-
-          {/* 오른쪽 8개 (위쪽 정렬) */}
+            {/* 오른쪽 8개 (위쪽 정렬) */}
             <div className="flex flex-col w-[220px] items-stretch">
             {schoolsRight.map((school) => (
                 <div
@@ -134,14 +138,20 @@ export default function CurriculumPage() {
                 <a
                     href={`/curriculum/${school.eng}.pdf`}
                     download
-                    className="text-[#2A7DE1] hover:text-[#f3bd8c] text-lg transition"
+                    className="hover:opacity-70 transition"
                     aria-label="교육과정 다운로드"
                 >
-                    ⤓
+                    <Image
+                    src="/icons/download_icon.svg"
+                    alt="다운로드 아이콘"
+                    width={18}
+                    height={18}
+                    />
                 </a>
                 </div>
             ))}
             </div>
+
         </div>
       </section>
 
