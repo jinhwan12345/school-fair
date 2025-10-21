@@ -179,7 +179,7 @@ export default function Home() {
 
 
       {/* ✅ 유관기관 슬라이드 */}
-      <section className="hidden lg:block w-full bg-gray-100 py-8">
+      <section className="hidden lg:block w-full py-8">
         <div className="max-w-[1200px] mx-auto overflow-hidden" ref={scrollRef}>
           <div className="flex gap-[25px] w-max">
             {[...Array(10)].map((_, i) => (
