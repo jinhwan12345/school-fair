@@ -59,7 +59,7 @@ export default function CurriculumPage() {
       {/* ✅ 본문 콘텐츠 */}
       <section className="max-w-[1200px] w-full px-4 py-12 flex flex-col lg:flex-row justify-between items-start gap-10">
         {/* ✅ 왼쪽 카드뉴스 */}
-        <div className="relative flex justify-center items-center w-full lg:w-[560px] h-[560px] bg-gray-100 rounded-lg overflow-hidden shadow">
+        <div className="relative flex justify-center items-center w-full lg:w-[530px] h-[530px] bg-gray-100 rounded-lg overflow-hidden shadow">
           <Image
             src={images[currentIndex]}
             alt={`교육과정 카드뉴스 ${currentIndex + 1}`}
