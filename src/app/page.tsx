@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import Header from "@/components/Header"; // ✅ 공통 헤더 불러오기
+import PopupModal from "@/components/PopupModal";
+
 
 export default function Home() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -93,6 +95,9 @@ export default function Home() {
     <main className="flex flex-col items-center bg-white text-gray-900">
       {/* ✅ 공통 헤더 */}
       <Header />
+
+      {/* ✅ 팝업 모달 */}
+      <PopupModal />   {/* 👉 여기 추가 */}
 
       {/* ✅ 메인 배너 */}
       <section className="w-full">
