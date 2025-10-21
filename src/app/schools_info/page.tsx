@@ -6,23 +6,23 @@ import Header from "@/components/Header";
 
 export default function SchoolsInfo() {
   const schools = [
-    { name: "정화여자고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "오성고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "영남공업고등학교", type: "특성화고 / 직업", establish: "사립" },
-    { name: "시지고등학교", type: "일반고 / 일반고", establish: "공립" },
-    { name: "수성고등학교", type: "일반고 / 일반고", establish: "공립" },
-    { name: "동문고등학교", type: "자율고 / 자공고", establish: "공립" },
-    { name: "덕원고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "대륜고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "대구혜화여자고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "대구중앙고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "대구농업마이스터고등학교", type: "특목고 / 마이스터고", establish: "공립" },
-    { name: "대구여자고등학교", type: "일반고 / 일반고", establish: "공립" },
-    { name: "대구남산고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "대구과학고등학교", type: "기타학교 / 영재고", establish: "공립" },
-    { name: "능인고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "경신고등학교", type: "일반고 / 일반고", establish: "사립" },
-    { name: "경북고등학교", type: "일반고 / 일반고", establish: "공립" },
+    { id: "junghwa", name: "정화여자고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "oseong", name: "오성고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "yeongnam-tech", name: "영남공업고등학교", type: "특성화고 / 직업", establish: "사립" },
+    { id: "siji", name: "시지고등학교", type: "일반고 / 일반고", establish: "공립" },
+    { id: "suseong", name: "수성고등학교", type: "일반고 / 일반고", establish: "공립" },
+    { id: "dongmun", name: "동문고등학교", type: "자율고 / 자공고", establish: "공립" },
+    { id: "deokwon", name: "덕원고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "daeryun", name: "대륜고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "hyehwa", name: "대구혜화여자고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "daegu-jungang", name: "대구중앙고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "daegu-agri-meister", name: "대구농업마이스터고등학교", type: "특목고 / 마이스터고", establish: "공립" },
+    { id: "daegu-girls", name: "대구여자고등학교", type: "일반고 / 일반고", establish: "공립" },
+    { id: "namsan", name: "대구남산고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "daegu-science", name: "대구과학고등학교", type: "기타학교 / 영재고", establish: "공립" },
+    { id: "neungin", name: "능인고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "kyungshin", name: "경신고등학교", type: "일반고 / 일반고", establish: "사립" },
+    { id: "kyungbuk", name: "경북고등학교", type: "일반고 / 일반고", establish: "공립" },
   ];
 
   return (
@@ -43,19 +43,19 @@ export default function SchoolsInfo() {
 
       {/* 카드 리스트 */}
       <section className="max-w-[1200px] mx-auto px-6 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {schools.map((school, i) => (
+        {schools.map((school) => (
           <Link
-            key={i}
-            href={`/schools_info/${i + 1}`} // ✅ 상세 페이지로 이동 경로 수정
+            key={school.id}
+            href={`/schools/${school.id}`} // ✅ 각 학교 상세 페이지로 연결
             className="group relative bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden 
                        hover:border-[#2A7DE1] transition-all duration-300 hover:shadow-lg"
           >
             <div className="p-6">
-              {/* 로고 */}
+              {/* ✅ 로고 불러오기 */}
               <div className="flex justify-center mb-4">
                 <div className="relative w-[100px] h-[100px]">
                   <Image
-                    src={`/images/schools_logo/school${i + 1}.png`}
+                    src={`/schools/${school.id}/logo.png`}
                     alt={school.name}
                     fill
                     className="object-contain"
@@ -64,9 +64,7 @@ export default function SchoolsInfo() {
               </div>
 
               {/* 학교 정보 */}
-              <h3 className="text-base font-bold mb-1 text-gray-800">
-                {school.name}
-              </h3>
+              <h3 className="text-base font-bold mb-1 text-gray-800">{school.name}</h3>
               <p className="text-sm text-gray-500">고교유형 {school.type}</p>
               <p className="text-sm text-gray-500">설립구분 {school.establish}</p>
             </div>
