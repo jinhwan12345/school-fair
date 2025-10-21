@@ -35,7 +35,7 @@ export default function AdmissionInfoPage() {
             />
 
             {/* 학교명 (고정폭, pill 형태) */}
-            <span className="bg-gray-100 text-gray-700 px-4 py-1 rounded-full text-sm font-medium border border-gray-200 w-[140px] text-center shrink-0">
+            <span className="bg-gray-100 text-gray-700 px-4 py-1 rounded-full text-sm font-medium border border-gray-200 w-[150px] text-center shrink-0">
                 {u.name}
             </span>
 
