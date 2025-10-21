@@ -59,12 +59,12 @@ export default function CurriculumPage() {
       {/* ✅ 본문 콘텐츠 */}
       <section className="max-w-[1200px] w-full px-4 py-12 flex flex-col lg:flex-row justify-between items-start gap-10">
         {/* ✅ 왼쪽 카드뉴스 */}
-        <div className="relative flex justify-center items-center w-full lg:w-[700px] aspect-square bg-gray-100 rounded-lg overflow-hidden shadow">
+        <div className="relative flex justify-center items-center w-full lg:w-[560px] h-[560px] bg-gray-100 rounded-lg overflow-hidden shadow">
           <Image
             src={images[currentIndex]}
             alt={`교육과정 카드뉴스 ${currentIndex + 1}`}
-            width={700}
-            height={700}
+            width={560}
+            height={560}
             className="object-contain"
           />
           {/* 화살표 버튼 */}
@@ -82,21 +82,22 @@ export default function CurriculumPage() {
           </button>
         </div>
 
-        {/* ✅ 오른쪽 학교 리스트 (9개 + 8개) */}
-        <div className="flex justify-between w-full lg:w-[480px] h-full">
+        {/* ✅ 오른쪽 학교 리스트 */}
+        <div className="flex justify-between w-full lg:w-[480px] items-start">
           {/* 왼쪽 9개 */}
-          <div className="flex flex-col justify-between w-[220px]">
+          <div className="flex flex-col justify-between w-[220px] h-[560px]">
             {schoolsLeft.map((school) => (
               <div
                 key={school.eng}
-                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition"
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[50px] bg-white shadow-sm transition"
+                style={{ marginBottom: "10px" }}
               >
                 <div className="flex items-center gap-2">
                   <Image
                     src={`/schools/${school.eng}/logo.png`}
                     alt={`${school.name} 로고`}
-                    width={28}
-                    height={28}
+                    width={26}
+                    height={26}
                   />
                   <span className="text-sm font-medium">{school.name}</span>
                 </div>
@@ -111,19 +112,19 @@ export default function CurriculumPage() {
             ))}
           </div>
 
-          {/* 오른쪽 8개 */}
-          <div className="flex flex-col justify-between w-[220px]">
+          {/* 오른쪽 8개 (위쪽 정렬) */}
+          <div className="flex flex-col w-[220px] items-stretch">
             {schoolsRight.map((school) => (
               <div
                 key={school.eng}
-                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition"
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[50px] bg-white shadow-sm transition mb-[10px]"
               >
                 <div className="flex items-center gap-2">
                   <Image
                     src={`/schools/${school.eng}/logo.png`}
                     alt={`${school.name} 로고`}
-                    width={28}
-                    height={28}
+                    width={26}
+                    height={26}
                   />
                   <span className="text-sm font-medium">{school.name}</span>
                 </div>
