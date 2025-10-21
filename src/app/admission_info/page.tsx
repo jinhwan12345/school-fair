@@ -24,25 +24,27 @@ export default function AdmissionInfoPage() {
               key={u.eng}
               className="flex items-center justify-between border border-gray-300 rounded-lg px-5 py-3 hover:bg-gray-50 transition"
             >
-              <div className="flex items-center gap-4">
-                {/* 대학 로고 */}
-                <Image
-                  src={`/universities/${u.eng}.png`}
-                  alt={`${u.name} 로고`}
-                  width={40}
-                  height={40}
-                />
+            {/* 제목과 학교명 정렬 개선 */}
+            <div className="flex items-center gap-4 w-full">
+            {/* 대학 로고 */}
+            <Image
+                src={`/universities/${u.eng}.png`}
+                alt={`${u.name} 로고`}
+                width={40}
+                height={40}
+            />
 
-                {/* 학교명 (pill 형태) */}
-                <span className="bg-gray-100 text-gray-700 px-4 py-1 rounded-full text-sm font-medium border border-gray-200">
-                  {u.name}
-                </span>
+            {/* 학교명 (고정폭, pill 형태) */}
+            <span className="bg-gray-100 text-gray-700 px-4 py-1 rounded-full text-sm font-medium border border-gray-200 w-[140px] text-center shrink-0">
+                {u.name}
+            </span>
 
-                {/* 제목 */}
-                <span className="text-gray-900 text-center font-semibold">
-                  {u.title}
-                </span>
-              </div>
+            {/* 제목 (flex-grow로 정렬선 유지) */}
+            <span className="text-gray-900 text-base font-semibold flex-1 truncate">
+                {u.title}
+            </span>
+            </div>
+
 
               {/* 바로가기 버튼 */}
               <a
