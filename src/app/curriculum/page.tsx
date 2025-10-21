@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 
 export default function CurriculumPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
 
   // ✅ 카드뉴스 이미지
   const images = [
@@ -39,17 +40,23 @@ export default function CurriculumPage() {
     { name: "오성고등학교", eng: "oseong" },
   ];
 
-  // ✅ 슬라이드 이동
-  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % images.length);
-  const prevSlide = () =>
+  // ✅ 슬라이드 이동 함수
+  const nextSlide = () => {
+    setDirection("next");
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevSlide = () => {
+    setDirection("prev");
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
-    <main className="flex flex-col items-center bg-white text-gray-900 min-h-screen">
+    <main className="flex flex-col items-center bg-white text-gray-900 min-h-screen overflow-hidden">
       {/* ✅ 헤더 */}
       <Header />
 
-      {/* 타이틀 */}
+      {/* ✅ 타이틀 */}
       <section className="w-full bg-[#2A7DE1] text-white py-4 font-semibold text-lg tracking-tight">
         <div className="max-w-[1200px] mx-auto px-6 text-left">
           수성구 고등학교 교육과정
@@ -60,13 +67,34 @@ export default function CurriculumPage() {
       <section className="max-w-[1200px] w-full px-4 py-12 flex flex-col lg:flex-row justify-between items-start gap-10">
         {/* ✅ 왼쪽 카드뉴스 */}
         <div className="relative flex justify-center items-center w-full lg:w-[620px] h-[620px] bg-gray-100 rounded-lg overflow-hidden shadow">
-          <Image
-            src={images[currentIndex]}
-            alt={`교육과정 카드뉴스 ${currentIndex + 1}`}
-            width={620}
-            height={620}
-            className="object-contain"
-          />
+          {/* 슬라이드 이미지 */}
+          <div
+            className={`absolute inset-0 flex transition-transform duration-500 ease-in-out`}
+            style={{
+              transform:
+                direction === "next"
+                  ? `translateX(-${currentIndex * 100}%)`
+                  : `translateX(-${currentIndex * 100}%)`,
+              width: `${images.length * 100}%`,
+            }}
+          >
+            {images.map((src, idx) => (
+              <div
+                key={idx}
+                className="w-full flex-shrink-0 flex justify-center items-center"
+                style={{ width: "100%" }}
+              >
+                <Image
+                  src={src}
+                  alt={`교육과정 카드뉴스 ${idx + 1}`}
+                  width={620}
+                  height={620}
+                  className="object-contain"
+                />
+              </div>
+            ))}
+          </div>
+
           {/* 화살표 버튼 */}
           <button
             onClick={prevSlide}
@@ -89,7 +117,7 @@ export default function CurriculumPage() {
             {schoolsLeft.map((school) => (
                 <div
                 key={school.eng}
-                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition"
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition group"
                 style={{ marginBottom: "10px" }}
                 >
                 <div className="flex items-center gap-2">
@@ -104,7 +132,7 @@ export default function CurriculumPage() {
                 <a
                     href={`/curriculum/${school.eng}.pdf`}
                     download
-                    className="hover:opacity-70 transition"
+                    className="transition"
                     aria-label="교육과정 다운로드"
                 >
                     <Image
@@ -112,18 +140,20 @@ export default function CurriculumPage() {
                     alt="다운로드 아이콘"
                     width={24}
                     height={24}
+                    className="transition-colors duration-200 group-hover:brightness-0 group-hover:invert-[0.6] group-hover:sepia group-hover:saturate-[10] group-hover:hue-rotate-[330deg] group-hover:brightness-100"
                     />
                 </a>
                 </div>
             ))}
             </div>
 
-            {/* 오른쪽 8개 (위쪽 정렬) */}
+
+            {/* 오른쪽 8개 */}
             <div className="flex flex-col w-[220px] items-stretch">
             {schoolsRight.map((school) => (
                 <div
                 key={school.eng}
-                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition"
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition group"
                 style={{ marginBottom: "10px" }}
                 >
                 <div className="flex items-center gap-2">
@@ -138,7 +168,7 @@ export default function CurriculumPage() {
                 <a
                     href={`/curriculum/${school.eng}.pdf`}
                     download
-                    className="hover:opacity-70 transition"
+                    className="transition"
                     aria-label="교육과정 다운로드"
                 >
                     <Image
@@ -146,12 +176,12 @@ export default function CurriculumPage() {
                     alt="다운로드 아이콘"
                     width={24}
                     height={24}
+                    className="transition-colors duration-200 group-hover:brightness-0 group-hover:invert-[0.6] group-hover:sepia group-hover:saturate-[10] group-hover:hue-rotate-[330deg] group-hover:brightness-100"
                     />
                 </a>
                 </div>
             ))}
             </div>
-
         </div>
       </section>
 
