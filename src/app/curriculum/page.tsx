@@ -84,60 +84,64 @@ export default function CurriculumPage() {
 
         {/* ✅ 오른쪽 학교 리스트 */}
         <div className="flex justify-between w-full lg:w-[480px] items-start">
-          {/* 왼쪽 9개 */}
-          <div className="flex flex-col justify-between w-[220px] h-[560px]">
+            {/* 왼쪽 9개 */}
+            <div className="flex flex-col justify-between w-[220px] h-[560px]">
             {schoolsLeft.map((school) => (
-              <div
+                <div
                 key={school.eng}
                 className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[50px] bg-white shadow-sm transition"
                 style={{ marginBottom: "10px" }}
-              >
+                >
                 <div className="flex items-center gap-2">
-                  <Image
+                    <Image
                     src={`/schools/${school.eng}/logo.png`}
                     alt={`${school.name} 로고`}
                     width={26}
                     height={26}
-                  />
-                  <span className="text-sm font-medium">{school.name}</span>
+                    />
+                    <span className="text-sm font-medium">{school.name}</span>
                 </div>
                 <a
-                  href={`/curriculum/${school.eng}.pdf`}
-                  download
-                  className="text-[#2A7DE1] hover:text-[#f3bd8c] transition"
+                    href={`/curriculum/${school.eng}.pdf`}
+                    download
+                    className="text-[#2A7DE1] hover:text-[#f3bd8c] text-lg transition"
+                    aria-label="교육과정 다운로드"
                 >
-                  📥
+                    ⤓
                 </a>
-              </div>
+                </div>
             ))}
-          </div>
+            </div>
+
 
           {/* 오른쪽 8개 (위쪽 정렬) */}
-          <div className="flex flex-col w-[220px] items-stretch">
+            <div className="flex flex-col w-[220px] items-stretch">
             {schoolsRight.map((school) => (
-              <div
+                <div
                 key={school.eng}
-                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[50px] bg-white shadow-sm transition mb-[10px]"
-              >
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[50px] bg-white shadow-sm transition"
+                style={{ marginBottom: "10px" }}
+                >
                 <div className="flex items-center gap-2">
-                  <Image
+                    <Image
                     src={`/schools/${school.eng}/logo.png`}
                     alt={`${school.name} 로고`}
                     width={26}
                     height={26}
-                  />
-                  <span className="text-sm font-medium">{school.name}</span>
+                    />
+                    <span className="text-sm font-medium">{school.name}</span>
                 </div>
                 <a
-                  href={`/curriculum/${school.eng}.pdf`}
-                  download
-                  className="text-[#2A7DE1] hover:text-[#f3bd8c] transition"
+                    href={`/curriculum/${school.eng}.pdf`}
+                    download
+                    className="text-[#2A7DE1] hover:text-[#f3bd8c] text-lg transition"
+                    aria-label="교육과정 다운로드"
                 >
-                  📥
+                    ⤓
                 </a>
-              </div>
+                </div>
             ))}
-          </div>
+            </div>
         </div>
       </section>
 
