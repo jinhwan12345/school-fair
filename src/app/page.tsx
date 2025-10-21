@@ -96,17 +96,16 @@ export default function Home() {
 
       {/* ✅ 메인 배너 */}
       <section className="w-full border-b">
-        <div className="max-w-[1200px] mx-auto px-4 py-6">
-          <Image
-            src="/banner.png"
-            alt="수성고교정보 통합 배너"
-            width={1200}
-            height={300}
-            className="rounded-md shadow-sm w-full object-cover"
-            priority
-          />
-        </div>
+        <Image
+          src="/banner.png"
+          alt="수성고교정보 통합 배너"
+          width={1920}
+          height={400}
+          className="w-full h-auto object-cover"
+          priority
+        />
       </section>
+
 
       {/* ✅ 학교 카드 + 지도 영역 */}
       <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
