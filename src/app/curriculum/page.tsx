@@ -130,7 +130,7 @@ export default function CurriculumPage() {
                     <span className="text-sm font-medium">{school.name}</span>
                 </div>
                 <a
-                    href={`/curriculum/${school.eng}.pdf`}
+                    href={`/curriculum/${school.eng}.xlsx`}
                     download
                     className="transition"
                     aria-label="교육과정 다운로드"
