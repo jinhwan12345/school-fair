@@ -63,8 +63,8 @@ export default function CurriculumPage() {
           <Image
             src={images[currentIndex]}
             alt={`교육과정 카드뉴스 ${currentIndex + 1}`}
-            width={560}
-            height={560}
+            width={530}
+            height={530}
             className="object-contain"
           />
           {/* 화살표 버튼 */}
@@ -110,8 +110,8 @@ export default function CurriculumPage() {
                     <Image
                     src="/icons/download_icon.svg"
                     alt="다운로드 아이콘"
-                    width={18}
-                    height={18}
+                    width={24}
+                    height={24}
                     />
                 </a>
                 </div>
@@ -144,8 +144,8 @@ export default function CurriculumPage() {
                     <Image
                     src="/icons/download_icon.svg"
                     alt="다운로드 아이콘"
-                    width={18}
-                    height={18}
+                    width={24}
+                    height={24}
                     />
                 </a>
                 </div>
