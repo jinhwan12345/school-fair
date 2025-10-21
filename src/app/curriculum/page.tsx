@@ -1,12 +1,52 @@
 "use client";
 
-import Header from "@/components/Header";
+import { useState } from "react";
 import Image from "next/image";
+import Header from "@/components/Header";
 
 export default function CurriculumPage() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // ✅ 카드뉴스 이미지
+  const images = [
+    "/curriculum/slide1.png",
+    "/curriculum/slide2.png",
+    "/curriculum/slide3.png",
+    "/curriculum/slide4.png",
+  ];
+
+  // ✅ 학교 데이터
+  const schoolsLeft = [
+    { name: "경북고등학교", eng: "kyungbuk" },
+    { name: "능인고등학교", eng: "neungin" },
+    { name: "대구남산고등학교", eng: "namsan" },
+    { name: "대구여자고등학교", eng: "daegu-girls" },
+    { name: "대구혜화여자고등학교", eng: "hyehwa" },
+    { name: "덕원고등학교", eng: "deokwon" },
+    { name: "수성고등학교", eng: "suseong" },
+    { name: "영남공업고등학교", eng: "yeongnam-tech" },
+    { name: "정화여자고등학교", eng: "junghwa" },
+  ];
+
+  const schoolsRight = [
+    { name: "경신고등학교", eng: "kyungshin" },
+    { name: "대구과학고등학교", eng: "daegu-science" },
+    { name: "대구농업마이스터고등학교", eng: "daegu-agri-meister" },
+    { name: "대구중앙고등학교", eng: "daegu-jungang" },
+    { name: "대륜고등학교", eng: "daeryun" },
+    { name: "동문고등학교", eng: "dongmun" },
+    { name: "시지고등학교", eng: "siji" },
+    { name: "오성고등학교", eng: "oseong" },
+  ];
+
+  // ✅ 슬라이드 이동
+  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const prevSlide = () =>
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+
   return (
     <main className="flex flex-col items-center bg-white text-gray-900 min-h-screen">
-      {/* ✅ 공통 헤더 */}
+      {/* ✅ 헤더 */}
       <Header />
 
       {/* 타이틀 */}
@@ -17,14 +57,86 @@ export default function CurriculumPage() {
       </section>
 
       {/* ✅ 본문 콘텐츠 */}
-      <section className="max-w-[1200px] w-full px-4 py-12">
-        <div className="text-center text-gray-700">
-          <p className="text-lg">
-            이 페이지는 수성구 내 각 고등학교의 교육과정 정보를 제공합니다.
-          </p>
-          <p className="mt-2 text-sm text-gray-500">
-            학교별 세부 과목, 선택과목, 진로별 교육과정 등은 순차적으로 업데이트될 예정입니다.
-          </p>
+      <section className="max-w-[1200px] w-full px-4 py-12 flex flex-col lg:flex-row justify-between items-start gap-10">
+        {/* ✅ 왼쪽 카드뉴스 */}
+        <div className="relative flex justify-center items-center w-full lg:w-[700px] aspect-square bg-gray-100 rounded-lg overflow-hidden shadow">
+          <Image
+            src={images[currentIndex]}
+            alt={`교육과정 카드뉴스 ${currentIndex + 1}`}
+            width={700}
+            height={700}
+            className="object-contain"
+          />
+          {/* 화살표 버튼 */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-3 bg-white/80 rounded-full p-2 shadow hover:bg-white transition"
+          >
+            ◀
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-3 bg-white/80 rounded-full p-2 shadow hover:bg-white transition"
+          >
+            ▶
+          </button>
+        </div>
+
+        {/* ✅ 오른쪽 학교 리스트 (9개 + 8개) */}
+        <div className="flex justify-between w-full lg:w-[480px] h-full">
+          {/* 왼쪽 9개 */}
+          <div className="flex flex-col justify-between w-[220px]">
+            {schoolsLeft.map((school) => (
+              <div
+                key={school.eng}
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition"
+              >
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={`/schools/${school.eng}/logo.png`}
+                    alt={`${school.name} 로고`}
+                    width={28}
+                    height={28}
+                  />
+                  <span className="text-sm font-medium">{school.name}</span>
+                </div>
+                <a
+                  href={`/curriculum/${school.eng}.pdf`}
+                  download
+                  className="text-[#2A7DE1] hover:text-[#f3bd8c] transition"
+                >
+                  📥
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* 오른쪽 8개 */}
+          <div className="flex flex-col justify-between w-[220px]">
+            {schoolsRight.map((school) => (
+              <div
+                key={school.eng}
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition"
+              >
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={`/schools/${school.eng}/logo.png`}
+                    alt={`${school.name} 로고`}
+                    width={28}
+                    height={28}
+                  />
+                  <span className="text-sm font-medium">{school.name}</span>
+                </div>
+                <a
+                  href={`/curriculum/${school.eng}.pdf`}
+                  download
+                  className="text-[#2A7DE1] hover:text-[#f3bd8c] transition"
+                >
+                  📥
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
