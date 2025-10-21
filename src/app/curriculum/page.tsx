@@ -59,12 +59,12 @@ export default function CurriculumPage() {
       {/* ✅ 본문 콘텐츠 */}
       <section className="max-w-[1200px] w-full px-4 py-12 flex flex-col lg:flex-row justify-between items-start gap-10">
         {/* ✅ 왼쪽 카드뉴스 */}
-        <div className="relative flex justify-center items-center w-full lg:w-[530px] h-[530px] bg-gray-100 rounded-lg overflow-hidden shadow">
+        <div className="relative flex justify-center items-center w-full lg:w-[620px] h-[620px] bg-gray-100 rounded-lg overflow-hidden shadow">
           <Image
             src={images[currentIndex]}
             alt={`교육과정 카드뉴스 ${currentIndex + 1}`}
-            width={530}
-            height={530}
+            width={620}
+            height={620}
             className="object-contain"
           />
           {/* 화살표 버튼 */}
@@ -85,11 +85,11 @@ export default function CurriculumPage() {
         {/* ✅ 오른쪽 학교 리스트 */}
         <div className="flex justify-between w-full lg:w-[480px] items-start">
             {/* 왼쪽 9개 */}
-            <div className="flex flex-col justify-between w-[220px] h-[530px]">
+            <div className="flex flex-col justify-between w-[220px] h-[620px]">
             {schoolsLeft.map((school) => (
                 <div
                 key={school.eng}
-                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[50px] bg-white shadow-sm transition"
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition"
                 style={{ marginBottom: "10px" }}
                 >
                 <div className="flex items-center gap-2">
@@ -123,7 +123,7 @@ export default function CurriculumPage() {
             {schoolsRight.map((school) => (
                 <div
                 key={school.eng}
-                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[50px] bg-white shadow-sm transition"
+                className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition"
                 style={{ marginBottom: "10px" }}
                 >
                 <div className="flex items-center gap-2">
