@@ -110,101 +110,66 @@ export default function CurriculumPage() {
           </button>
         </div>
 
-        {/* ✅ 오른쪽 학교 리스트 */}
-            <div className="flex justify-between w-full lg:w-[480px] items-start">
-            {/* 왼쪽 9개 (통합 파일 + 8개 학교) */}
-            <div className="flex flex-col justify-between w-[220px] h-[620px]">
-                {/* 통합 파일 */}
-                <div
-                className="flex items-center justify-between bg-[#f3bd8c] border border-[#f3bd8c] rounded-md px-3 h-[60px] shadow-sm transition hover:brightness-105 group"
-                style={{ marginBottom: "10px" }}
-                >
-                <div className="flex items-center gap-2 font-semibold text-white text-sm">
-                    통합 파일
-                </div>
-                <a
-                    href="/curriculum/total_curriculum.xlsx"
-                    download
-                    aria-label="전체 교육과정 다운로드"
-                >
-                    <Image
-                    src="/icons/download_icon.svg"
-                    alt="다운로드 아이콘"
-                    width={24}
-                    height={24}
-                    className="brightness-0 invert-[1] transition duration-200 group-hover:brightness-200"
-                    />
-                </a>
-                </div>
+{/* ✅ 오른쪽 학교 리스트 */}
+<div className="flex flex-col w-full lg:w-[480px] items-center">
+  {/* 통합 파일 */}
+  <div
+    className="flex items-center justify-between bg-[#f3bd8c] border border-[#f3bd8c] rounded-md px-4 h-[60px] shadow-sm transition hover:brightness-105 group w-full mb-[20px]"
+  >
+    <div className="flex items-center gap-2 font-semibold text-white text-sm">
+      통합 파일
+    </div>
+    <a
+      href="/curriculum/total_curriculum.xlsx"
+      download
+      aria-label="전체 교육과정 다운로드"
+    >
+      <Image
+        src="/icons/download_icon.svg"
+        alt="다운로드 아이콘"
+        width={24}
+        height={24}
+        className="brightness-0 invert-[1] transition duration-200 group-hover:brightness-200"
+      />
+    </a>
+  </div>
 
+  {/* ✅ 학교 16개 (대구과학고 제외) */}
+  <div className="grid grid-cols-2 gap-[10px] w-full">
+    {[...schoolsLeft, ...schoolsRight.filter(s => s.eng !== "daegu-science")]
+      .slice(0, 16)
+      .map((school) => (
+        <div
+          key={school.eng}
+          className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[66.25px] bg-white shadow-sm transition group"
+        >
+          <div className="flex items-center gap-2">
+            <Image
+              src={`/schools/${school.eng}/logo.png`}
+              alt={`${school.name} 로고`}
+              width={26}
+              height={26}
+            />
+            <span className="text-sm font-medium">{school.name}</span>
+          </div>
+          <a
+            href={`/curriculum/${school.eng}.xlsx`}
+            download
+            aria-label="교육과정 다운로드"
+          >
+            <Image
+              src="/icons/download_icon.svg"
+              alt="다운로드 아이콘"
+              width={24}
+              height={24}
+              className="transition-colors duration-200 group-hover:brightness-0 group-hover:invert-[0.6] group-hover:sepia group-hover:saturate-[10] group-hover:hue-rotate-[330deg] group-hover:brightness-100"
+            />
+          </a>
+        </div>
+      ))}
+  </div>
+</div>
 
-                {/* 나머지 8개 학교 */}
-                {schoolsLeft.slice(0, 8).map((school) => (
-                <div
-                    key={school.eng}
-                    className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition group"
-                    style={{ marginBottom: "10px" }}
-                >
-                    <div className="flex items-center gap-2">
-                    <Image
-                        src={`/schools/${school.eng}/logo.png`}
-                        alt={`${school.name} 로고`}
-                        width={26}
-                        height={26}
-                    />
-                    <span className="text-sm font-medium">{school.name}</span>
-                    </div>
-                    <a
-                    href={`/curriculum/${school.eng}.xlsx`}
-                    download
-                    aria-label="교육과정 다운로드"
-                    >
-                    <Image
-                        src="/icons/download_icon.svg"
-                        alt="다운로드 아이콘"
-                        width={24}
-                        height={24}
-                        className="transition-colors duration-200 group-hover:brightness-0 group-hover:invert-[0.6] group-hover:sepia group-hover:saturate-[10] group-hover:hue-rotate-[330deg] group-hover:brightness-100"
-                    />
-                    </a>
-                </div>
-                ))}
-            </div>
-
-            {/* 오른쪽 9개 (기존 8개 + 왼쪽 마지막 1개 추가) */}
-            <div className="flex flex-col w-[220px] items-stretch">
-                {[...schoolsRight, schoolsLeft[8]].map((school) => (
-                <div
-                    key={school.eng}
-                    className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[58.89px] bg-white shadow-sm transition group"
-                    style={{ marginBottom: "10px" }}
-                >
-                    <div className="flex items-center gap-2">
-                    <Image
-                        src={`/schools/${school.eng}/logo.png`}
-                        alt={`${school.name} 로고`}
-                        width={26}
-                        height={26}
-                    />
-                    <span className="text-sm font-medium">{school.name}</span>
-                    </div>
-                    <a
-                    href={`/curriculum/${school.eng}.xlsx`}
-                    download
-                    aria-label="교육과정 다운로드"
-                    >
-                    <Image
-                        src="/icons/download_icon.svg"
-                        alt="다운로드 아이콘"
-                        width={24}
-                        height={24}
-                        className="transition-colors duration-200 group-hover:brightness-0 group-hover:invert-[0.6] group-hover:sepia group-hover:saturate-[10] group-hover:hue-rotate-[330deg] group-hover:brightness-100"
-                    />
-                    </a>
-                </div>
-                ))}
-            </div>
-            </div>
       </section>
 
       {/* ✅ 푸터 */}
