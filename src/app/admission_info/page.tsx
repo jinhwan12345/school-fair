@@ -22,10 +22,10 @@ export default function AdmissionInfoPage() {
         {universities.map((u) => (
         <div
             key={u.eng}
-            className="flex items-center justify-between border border-gray-300 rounded-lg px-5 py-3 hover:bg-gray-50 transition flex-wrap sm:flex-nowrap"
+            className="flex items-start sm:items-center justify-between border border-gray-300 rounded-lg px-5 py-3 hover:bg-gray-50 transition flex-col sm:flex-row gap-2"
         >
-            {/* 제목 + 학교명 */}
-            <div className="flex items-center gap-4 w-full sm:w-auto">
+            {/* ✅ 왼쪽 영역 (학교명 + 제목) */}
+            <div className="flex items-start sm:items-center gap-4 w-full">
             {/* 로고 — 모바일에서는 숨김 */}
             <Image
                 src={`/universities/${u.eng}.png`}
@@ -40,22 +40,24 @@ export default function AdmissionInfoPage() {
                 <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium border border-gray-200 text-center w-fit sm:w-[150px] mb-1 sm:mb-0">
                 {u.name}
                 </span>
-                <span className="text-gray-900 text-sm sm:text-base font-semibold break-keep leading-snug">
+
+                {/* ✅ 제목: 모바일에서는 줄바꿈 가능 */}
+                <span className="text-gray-900 text-sm sm:text-base font-semibold leading-snug whitespace-normal break-words">
                 {u.title}
                 </span>
             </div>
             </div>
 
-            {/* ✅ 반응형 바로가기 버튼 (모바일: 아이콘 / 데스크탑: 텍스트) */}
+            {/* ✅ 반응형 바로가기 버튼 */}
             <a
             href={u.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center text-[#2A7DE1] border border-[#2A7DE1] rounded-full p-2 sm:px-3 sm:py-1 sm:text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition mt-2 sm:mt-0"
+            className="self-end sm:self-center flex items-center justify-center text-[#2A7DE1] border border-[#2A7DE1] rounded-full p-2 sm:px-3 sm:py-1 sm:text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition"
             >
             {/* 모바일: 아이콘 */}
             <Image
-                src="/icons/link_icon.svg" // ← 여기에 업로드한 아이콘 경로 넣기
+                src="/icons/link_icon.png"
                 alt="링크 아이콘"
                 width={18}
                 height={18}
@@ -68,6 +70,7 @@ export default function AdmissionInfoPage() {
         ))}
     </div>
     </section>
+
 
 
       {/* 하단 푸터 */}
