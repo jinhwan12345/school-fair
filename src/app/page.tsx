@@ -140,13 +140,13 @@ export default function Home() {
             : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
         }`}
       >
-        <span className="text-sm font-medium">{school.name}</span>
+        <span className="text-sm lg:text-base font-medium truncate">{school.name}</span>
         <Image
           src={`/schools/${school.engName}/logo.png`}
           alt={`${school.name} 로고`}
           width={24}
           height={24}
-          className="ml-2"
+          className="ml-2 hidden sm:block"
         />
       </button>
     ))}
@@ -176,14 +176,31 @@ export default function Home() {
             : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
         }`}
       >
-        <span className="text-sm font-medium">{school.name}</span>
+        <span className="text-sm lg:text-base font-medium truncate">{school.name}</span>
         <Image
           src={`/schools/${school.engName}/logo.png`}
           alt={`${school.name} 로고`}
           width={24}
           height={24}
-          className="ml-2"
+          className="ml-2 hidden sm:block"
         />
+      </button>
+    ))}
+  </div>
+
+  {/* ✅ 모바일용 2열 리스트 */}
+  <div className="grid grid-cols-2 gap-[10px] w-full sm:hidden order-3 mt-6">
+    {[...schoolsLeft, ...schoolsRight].slice(0, 16).map((school) => (
+      <button
+        key={school.engName}
+        onClick={() => handleClick(school.engName)}
+        className={`flex items-center justify-center border border-[#969696] rounded-md h-[60px] text-xs font-medium shadow-sm transition-colors duration-200 ${
+          activeSchool === school.engName
+            ? "bg-[#2a7de1] text-white"
+            : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
+        }`}
+      >
+        {school.name}
       </button>
     ))}
   </div>
