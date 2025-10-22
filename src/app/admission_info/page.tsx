@@ -53,11 +53,11 @@ export default function AdmissionInfoPage() {
             href={u.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="self-end sm:self-center flex items-center justify-center text-[#2A7DE1] border border-[#2A7DE1] rounded-full p-2 sm:px-3 sm:py-1 sm:text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition"
+            className="ml-auto flex items-center justify-center text-[#2A7DE1] border border-[#2A7DE1] rounded-full p-2 sm:px-3 sm:py-1 sm:text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition shrink-0"
             >
             {/* 모바일: 아이콘 */}
             <Image
-                src="/icons/link_icon.png"
+                src="/icons/link_icon.svg"
                 alt="링크 아이콘"
                 width={18}
                 height={18}
