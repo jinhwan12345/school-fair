@@ -112,11 +112,11 @@ export default function CurriculumPage() {
 
         {/* ✅ 오른쪽 학교 리스트 */}
         <div className="flex justify-between w-full lg:w-[480px] items-start">
-        {/* 왼쪽 9개 (첫 번째는 전체 교육과정) */}
+        {/* 왼쪽 9개 (첫 번째는 전체 교육과정 포함) */}
         <div className="flex flex-col justify-between w-[220px] h-[620px]">
             {/* ✅ 전체 교육과정 버튼 */}
             <div
-            className="flex items-center justify-between bg-[#F3BD8C] border border-[#F3BD8C] rounded-md px-3 h-[60px] shadow-sm transition hover:brightness-105"
+            className="flex items-center justify-between bg-[#E4AE87] border border-[#E4AE87] rounded-md px-3 h-[60px] shadow-sm transition hover:brightness-105"
             style={{ marginBottom: "10px" }}
             >
             <div className="flex items-center gap-2 font-semibold text-gray-800 text-sm">
@@ -138,8 +138,8 @@ export default function CurriculumPage() {
             </a>
             </div>
 
-            {/* ✅ 나머지 8개 학교 */}
-            {schoolsLeft.map((school) => (
+            {/* ✅ 나머지 8개 학교 (왼쪽) */}
+            {schoolsLeft.slice(0, 8).map((school) => (
             <div
                 key={school.eng}
                 className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition group"
@@ -207,7 +207,6 @@ export default function CurriculumPage() {
             ))}
         </div>
         </div>
-
       </section>
 
       {/* ✅ 푸터 */}
