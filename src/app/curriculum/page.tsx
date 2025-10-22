@@ -141,7 +141,7 @@ export default function CurriculumPage() {
       .map((school) => (
         <div
           key={school.eng}
-          className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[66.25px] bg-white shadow-sm transition group"
+          className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition group"
         >
           <div className="flex items-center gap-2">
             <Image
