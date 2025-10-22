@@ -175,7 +175,7 @@ export default function CurriculumPage() {
                 {[...schoolsRight, schoolsLeft[8]].map((school) => (
                 <div
                     key={school.eng}
-                    className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[60px] bg-white shadow-sm transition group"
+                    className="flex items-center justify-between border border-[#969696] rounded-md px-3 h-[58.89px] bg-white shadow-sm transition group"
                     style={{ marginBottom: "10px" }}
                 >
                     <div className="flex items-center gap-2">
