@@ -102,15 +102,27 @@ export default function Home() {
 
       {/* ✅ 메인 배너 */}
       <section className="w-full">
+        {/* 데스크탑 배너 */}
         <Image
           src="/banner.png"
           alt="수성고교정보 통합 배너"
           width={1920}
           height={400}
-          className="w-full h-auto object-cover"
+          className="hidden sm:block w-full h-auto object-cover"
+          priority
+        />
+
+        {/* 모바일 배너 */}
+        <Image
+          src="/banner_mobile.png"
+          alt="수성고교정보 통합 모바일 배너"
+          width={800}
+          height={400}
+          className="block sm:hidden w-full h-auto object-cover"
           priority
         />
       </section>
+
 
 
       {/* ✅ 학교 카드 + 지도 영역 */}
