@@ -65,50 +65,45 @@ export default function CurriculumPage() {
 
       {/* ✅ 본문 콘텐츠 */}
       <section className="max-w-[1200px] w-full px-4 py-12 flex flex-col lg:flex-row justify-between items-start gap-10">
-        {/* ✅ 왼쪽 카드뉴스 */}
-        <div className="relative flex justify-center items-center w-full lg:w-[620px] h-[620px] bg-gray-100 rounded-lg overflow-hidden shadow">
-          {/* 슬라이드 이미지 */}
-          <div
-            className={`absolute inset-0 flex transition-transform duration-500 ease-in-out`}
-            style={{
-              transform:
-                direction === "next"
-                  ? `translateX(-${currentIndex * 100}%)`
-                  : `translateX(-${currentIndex * 100}%)`,
-              width: `${images.length * 100}%`,
-            }}
-          >
-            {images.map((src, idx) => (
-              <div
-                key={idx}
-                className="w-full flex-shrink-0 flex justify-center items-center"
-                style={{ width: "100%" }}
-              >
-                <Image
-                  src={src}
-                  alt={`교육과정 카드뉴스 ${idx + 1}`}
-                  width={620}
-                  height={620}
-                  className="object-contain"
-                />
-              </div>
-            ))}
-          </div>
+{/* ✅ 왼쪽 카드뉴스 */}
+<div className="relative flex justify-center items-center w-full lg:w-[620px] h-[620px] bg-gray-100 rounded-lg overflow-hidden shadow">
+  {/* ✅ 슬라이드 컨테이너 */}
+  <div
+    className="flex transition-transform duration-500 ease-in-out w-full h-full"
+    style={{
+      transform: `translateX(-${currentIndex * 100}%)`,
+    }}
+  >
+    {images.map((src, idx) => (
+      <div
+        key={idx}
+        className="flex-shrink-0 w-full h-full flex justify-center items-center"
+      >
+        <Image
+          src={src}
+          alt={`교육과정 카드뉴스 ${idx + 1}`}
+          fill
+          className="object-contain"
+        />
+      </div>
+    ))}
+  </div>
 
-          {/* 화살표 버튼 */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-3 bg-white/80 rounded-full p-2 shadow hover:bg-white transition"
-          >
-            ◀
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-3 bg-white/80 rounded-full p-2 shadow hover:bg-white transition"
-          >
-            ▶
-          </button>
-        </div>
+  {/* 화살표 버튼 */}
+  <button
+    onClick={prevSlide}
+    className="absolute left-3 bg-white/80 rounded-full p-2 shadow hover:bg-white transition"
+  >
+    ◀
+  </button>
+  <button
+    onClick={nextSlide}
+    className="absolute right-3 bg-white/80 rounded-full p-2 shadow hover:bg-white transition"
+  >
+    ▶
+  </button>
+</div>
+
 
 {/* ✅ 오른쪽 학교 리스트 */}
 <div className="flex flex-col w-full lg:w-[480px] items-center">
