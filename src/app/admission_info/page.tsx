@@ -16,49 +16,59 @@ export default function AdmissionInfoPage() {
         </div>
       </section>
 
-      {/* 본문 리스트 */}
-      <section className="max-w-[1200px] w-full px-4 py-12">
-        <div className="space-y-4">
-          {universities.map((u) => (
-            <div
-              key={u.eng}
-              className="flex items-center justify-between border border-gray-300 rounded-lg px-5 py-3 hover:bg-gray-50 transition"
-            >
-            {/* 제목과 학교명 정렬 개선 */}
-            <div className="flex items-center gap-4 w-full">
-            {/* 대학 로고 */}
+    {/* 본문 리스트 */}
+    <section className="max-w-[1200px] w-full px-4 py-12">
+    <div className="space-y-4">
+        {universities.map((u) => (
+        <div
+            key={u.eng}
+            className="flex items-center justify-between border border-gray-300 rounded-lg px-5 py-3 hover:bg-gray-50 transition flex-wrap sm:flex-nowrap"
+        >
+            {/* 제목 + 학교명 */}
+            <div className="flex items-center gap-4 w-full sm:w-auto">
+            {/* 로고 — 모바일에서는 숨김 */}
             <Image
                 src={`/universities/${u.eng}.png`}
                 alt={`${u.name} 로고`}
                 width={40}
                 height={40}
+                className="hidden sm:block"
             />
 
-            {/* 학교명 (고정폭, pill 형태) */}
-            <span className="bg-gray-100 text-gray-700 px-4 py-1 rounded-full text-sm font-medium border border-gray-200 w-[150px] text-center shrink-0">
+            {/* 학교명 + 제목 (모바일: 세로정렬) */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 w-full">
+                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium border border-gray-200 text-center w-fit sm:w-[150px] mb-1 sm:mb-0">
                 {u.name}
-            </span>
-
-            {/* 제목 (flex-grow로 정렬선 유지) */}
-            <span className="text-gray-900 text-base font-semibold flex-1 truncate">
+                </span>
+                <span className="text-gray-900 text-sm sm:text-base font-semibold break-keep leading-snug">
                 {u.title}
-            </span>
+                </span>
+            </div>
             </div>
 
-
-              {/* 바로가기 버튼 */}
-              <a
-                href={u.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#2A7DE1] border border-[#2A7DE1] rounded-full px-3 py-1 text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition whitespace-nowrap"
-              >
-                바로가기
-              </a>
-            </div>
-          ))}
+            {/* ✅ 반응형 바로가기 버튼 (모바일: 아이콘 / 데스크탑: 텍스트) */}
+            <a
+            href={u.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center text-[#2A7DE1] border border-[#2A7DE1] rounded-full p-2 sm:px-3 sm:py-1 sm:text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition mt-2 sm:mt-0"
+            >
+            {/* 모바일: 아이콘 */}
+            <Image
+                src="/icons/link_icon.svg" // ← 여기에 업로드한 아이콘 경로 넣기
+                alt="링크 아이콘"
+                width={18}
+                height={18}
+                className="block sm:hidden"
+            />
+            {/* 데스크탑: 텍스트 */}
+            <span className="hidden sm:block">바로가기</span>
+            </a>
         </div>
-      </section>
+        ))}
+    </div>
+    </section>
+
 
       {/* 하단 푸터 */}
       <footer className="w-full bg-[#2A7DE1] text-white text-xs md:text-sm py-6 mt-auto">
