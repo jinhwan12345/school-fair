@@ -16,60 +16,59 @@ export default function AdmissionInfoPage() {
         </div>
       </section>
 
-    {/* 본문 리스트 */}
-    <section className="max-w-[1200px] w-full px-4 py-12">
-    <div className="space-y-4">
-        {universities.map((u) => (
-        <div
-            key={u.eng}
-            className="flex items-start sm:items-center justify-between border border-gray-300 rounded-lg px-5 py-3 hover:bg-gray-50 transition flex-col sm:flex-row gap-2"
-        >
-            {/* ✅ 왼쪽 영역 (학교명 + 제목) */}
-            <div className="flex items-start sm:items-center gap-4 w-full">
-            {/* 로고 — 모바일에서는 숨김 */}
-            <Image
-                src={`/universities/${u.eng}.png`}
-                alt={`${u.name} 로고`}
-                width={40}
-                height={40}
-                className="hidden sm:block"
-            />
-
-            {/* 학교명 + 제목 (모바일: 세로정렬) */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 w-full">
-                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium border border-gray-200 text-center w-fit sm:w-[150px] mb-1 sm:mb-0">
-                {u.name}
-                </span>
-
-                {/* ✅ 제목: 모바일에서는 줄바꿈 가능 */}
-                <span className="text-gray-900 text-sm sm:text-base font-semibold leading-snug whitespace-normal break-words">
-                {u.title}
-                </span>
-            </div>
-            </div>
-
-            {/* ✅ 반응형 바로가기 버튼 */}
-            <a
-            href={u.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-auto flex items-center justify-center text-[#2A7DE1] border border-[#2A7DE1] rounded-full p-2 sm:px-3 sm:py-1 sm:text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition shrink-0"
+        {/* 본문 리스트 */}
+        <section className="max-w-[1200px] w-full px-4 py-12">
+        <div className="space-y-4">
+            {universities.map((u) => (
+            <div
+                key={u.eng}
+                className="flex items-center justify-between border border-gray-300 rounded-lg px-5 py-3 hover:bg-gray-50 transition"
             >
-            {/* 모바일: 아이콘 */}
-            <Image
-                src="/icons/link_icon.svg"
-                alt="링크 아이콘"
-                width={18}
-                height={18}
-                className="block sm:hidden"
-            />
-            {/* 데스크탑: 텍스트 */}
-            <span className="hidden sm:block">바로가기</span>
-            </a>
+                {/* ✅ 왼쪽: 학교명 + 제목 묶음 */}
+                <div className="flex items-start sm:items-center gap-3 w-[85%]">
+                {/* 로고 — 모바일에서는 숨김 */}
+                <Image
+                    src={`/universities/${u.eng}.png`}
+                    alt={`${u.name} 로고`}
+                    width={40}
+                    height={40}
+                    className="hidden sm:block"
+                />
+
+                {/* 학교명 + 제목 (세로정렬) */}
+                <div className="flex flex-col">
+                    <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium border border-gray-200 w-fit mb-1">
+                    {u.name}
+                    </span>
+                    <span className="text-gray-900 text-sm sm:text-base font-semibold leading-snug whitespace-normal break-words">
+                    {u.title}
+                    </span>
+                </div>
+                </div>
+
+                {/* ✅ 오른쪽: 반응형 링크 버튼 */}
+                <a
+                href={u.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center text-[#2A7DE1] border border-[#2A7DE1] rounded-full p-2 sm:px-3 sm:py-1 sm:text-sm font-medium hover:bg-[#2A7DE1] hover:text-white transition shrink-0"
+                >
+                {/* 모바일: 아이콘 */}
+                <Image
+                    src="/icons/link_icon.svg"
+                    alt="링크 아이콘"
+                    width={18}
+                    height={18}
+                    className="block sm:hidden"
+                />
+                {/* 데스크탑: 텍스트 */}
+                <span className="hidden sm:block">바로가기</span>
+                </a>
+            </div>
+            ))}
         </div>
-        ))}
-    </div>
-    </section>
+        </section>
+
 
 
 
