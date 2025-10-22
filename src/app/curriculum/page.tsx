@@ -116,8 +116,8 @@ export default function CurriculumPage() {
   <div
     className="flex items-center justify-between bg-[#f3bd8c] border border-[#f3bd8c] rounded-md px-4 h-[60px] shadow-sm transition hover:brightness-105 group w-full mb-[10px]"
   >
-    <div className="flex items-center gap-2 font-semibold text-white text-sm">
-      통합 파일
+    <div className="flex items-center justify-center gap-2 font-semibold text-white text-sm">
+      통합 3개년 교육과정 편성표
     </div>
     <a
       href="/curriculum/total_curriculum.xlsx"
