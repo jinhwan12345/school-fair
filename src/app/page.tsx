@@ -78,13 +78,12 @@ export default function Home() {
     { name: "대구혜화여자고등학교", engName: "hyehwa" },
     { name: "덕원고등학교", engName: "deokwon" },
     { name: "수성고등학교", engName: "suseong" },
-    { name: "영남공업고등학교", engName: "yeongnam-tech" },
     { name: "정화여자고등학교", engName: "junghwa" },
   ];
 
   const schoolsRight = [
     { name: "경신고등학교", engName: "kyungshin" },
-    { name: "대구과학고등학교", engName: "daegu-science" },
+    { name: "영남공업고등학교", engName: "yeongnam-tech" },
     { name: "대구농업마이스터고등학교", engName: "daegu-agri-meister" },
     { name: "대구중앙고등학교", engName: "daegu-jungang" },
     { name: "대륜고등학교", engName: "daeryun" },
@@ -114,72 +113,69 @@ export default function Home() {
       </section>
 
 
-{/* ✅ 학교 카드 + 지도 영역 */}
-<section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
+      {/* ✅ 학교 카드 + 지도 영역 */}
+      <section className="max-w-[1200px] mx-auto py-10 px-4 flex flex-col lg:flex-row justify-between items-start gap-10">
 
-  {/* 왼쪽 학교 리스트 (8개) */}
-  <div className="flex flex-col justify-between w-full lg:w-[220px] h-[530px]">
-    {schoolsLeft.slice(0, 8).map((school) => (
-      <button
-        key={school.engName}
-        onClick={() => handleClick(school.engName)}
-        className={`flex items-center justify-between border border-[#969696] rounded-md px-3 h-[66.25px] shadow-sm transition-colors duration-200 ${
-          activeSchool === school.engName
-            ? "bg-[#2a7de1] text-white"
-            : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
-        }`}
-      >
-        <span className="text-sm font-medium">{school.name}</span>
-        <Image
-          src={`/schools/${school.engName}/logo.png`}
-          alt={`${school.name} 로고`}
-          width={24}
-          height={24}
-          className="ml-2"
-        />
-      </button>
-    ))}
-  </div>
+        {/* 왼쪽 학교 리스트 (8개) */}
+        <div className="flex flex-col w-full lg:w-[220px] gap-[10px]">
+          {schoolsLeft.slice(0, 8).map((school) => (
+            <button
+              key={school.engName}
+              onClick={() => handleClick(school.engName)}
+              className={`flex items-center justify-between border border-[#969696] rounded-md px-3 h-[66.25px] shadow-sm transition-colors duration-200 ${
+                activeSchool === school.engName
+                  ? "bg-[#2a7de1] text-white"
+                  : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
+              }`}
+            >
+              <span className="text-sm font-medium">{school.name}</span>
+              <Image
+                src={`/schools/${school.engName}/logo.png`}
+                alt={`${school.name} 로고`}
+                width={24}
+                height={24}
+                className="ml-2"
+              />
+            </button>
+          ))}
+        </div>
 
-  {/* 중앙 지도 */}
-  <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] h-[600px] overflow-hidden shadow-sm">
-    <Image
-      src="/map.png"
-      alt="수성구 고등학교 지도"
-      width={600}
-      height={600}
-      className="object-contain w-full h-full"
-      priority
-    />
-  </div>
+        {/* 중앙 지도 */}
+        <div className="flex justify-center items-center bg-gray-100 rounded-md w-full lg:w-[600px] h-[600px] overflow-hidden shadow-sm">
+          <Image
+            src="/map.png"
+            alt="수성구 고등학교 지도"
+            width={600}
+            height={600}
+            className="object-contain w-full h-full"
+            priority
+          />
+        </div>
 
-  {/* 오른쪽 학교 리스트 (8개) */}
-  <div className="flex flex-col justify-between w-full lg:w-[220px] h-[530px]">
-    {schoolsRight.slice(0, 8).map((school) => (
-      <button
-        key={school.engName}
-        onClick={() => handleClick(school.engName)}
-        className={`flex items-center justify-between border border-[#969696] rounded-md px-3 h-[66.25px] shadow-sm transition-colors duration-200 ${
-          activeSchool === school.engName
-            ? "bg-[#2a7de1] text-white"
-            : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
-        }`}
-      >
-        <span className="text-sm font-medium">{school.name}</span>
-        <Image
-          src={`/schools/${school.engName}/logo.png`}
-          alt={`${school.name} 로고`}
-          width={24}
-          height={24}
-          className="ml-2"
-        />
-      </button>
-    ))}
-  </div>
-</section>
-
-
-
+        {/* 오른쪽 학교 리스트 (8개) */}
+        <div className="flex flex-col w-full lg:w-[220px] gap-[10px]">
+          {schoolsRight.slice(0, 8).map((school) => (
+            <button
+              key={school.engName}
+              onClick={() => handleClick(school.engName)}
+              className={`flex items-center justify-between border border-[#969696] rounded-md px-3 h-[66.25px] shadow-sm transition-colors duration-200 ${
+                activeSchool === school.engName
+                  ? "bg-[#2a7de1] text-white"
+                  : "bg-white text-black hover:bg-[#f3bd8c] hover:text-white"
+              }`}
+            >
+              <span className="text-sm font-medium">{school.name}</span>
+              <Image
+                src={`/schools/${school.engName}/logo.png`}
+                alt={`${school.name} 로고`}
+                width={24}
+                height={24}
+                className="ml-2"
+              />
+            </button>
+          ))}
+        </div>
+      </section>
 
 
      {/* ✅ 유관기관 슬라이드 */}
