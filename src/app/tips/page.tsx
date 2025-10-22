@@ -52,7 +52,7 @@ export default function TipsPage() {
       </section>
 
       {/* 푸터 */}
-      <footer className="w-full bg-[#2A7DE1] text-white text-xs md:text-sm py-6 mt-8">
+      <footer className="w-full bg-[#2A7DE1] text-white text-xs md:text-sm py-6 mt-auto">
         <div className="max-w-[1200px] mx-auto text-center leading-6 px-4 md:px-6">
           <p>
             [42027] 대구광역시 수성구 달구벌대로 2451(범어동) 범어도서관 5층 대표전화:
