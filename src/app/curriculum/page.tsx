@@ -67,27 +67,28 @@ export default function CurriculumPage() {
       <section className="max-w-[1200px] w-full px-4 py-12 flex flex-col lg:flex-row justify-between items-start gap-10">
 {/* ✅ 왼쪽 카드뉴스 */}
 <div className="relative flex justify-center items-center w-full lg:w-[620px] h-[620px] bg-gray-100 rounded-lg overflow-hidden shadow">
-  {/* ✅ 슬라이드 컨테이너 */}
-  <div
-    className="flex transition-transform duration-500 ease-in-out w-full h-full"
+    {/* ✅ 슬라이드 컨테이너 */}
+    <div
+    className="flex transition-transform duration-1000 ease-in-out w-full h-full"
     style={{
-      transform: `translateX(-${currentIndex * 100}%)`,
+        transform: `translateX(-${currentIndex * 100}%)`,
     }}
-  >
+    >
     {images.map((src, idx) => (
-      <div
+        <div
         key={idx}
-        className="flex-shrink-0 w-full h-full flex justify-center items-center"
-      >
+        className="min-w-full h-full flex justify-center items-center flex-shrink-0"
+        >
         <Image
-          src={src}
-          alt={`교육과정 카드뉴스 ${idx + 1}`}
-          fill
-          className="object-contain"
+            src={src}
+            alt={`교육과정 카드뉴스 ${idx + 1}`}
+            fill
+            className="object-contain"
         />
-      </div>
+        </div>
     ))}
-  </div>
+    </div>
+
 
   {/* 화살표 버튼 */}
   <button
