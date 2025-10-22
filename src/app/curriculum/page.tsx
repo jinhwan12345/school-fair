@@ -116,10 +116,10 @@ export default function CurriculumPage() {
             <div className="flex flex-col justify-between w-[220px] h-[620px]">
                 {/* 통합 파일 */}
                 <div
-                className="flex items-center justify-between bg-[#E4AE87] border border-[#E4AE87] rounded-md px-3 h-[60px] shadow-sm transition hover:brightness-105"
+                className="flex items-center justify-between bg-[#f3bd8c] border border-[#f3bd8c] rounded-md px-3 h-[60px] shadow-sm transition hover:brightness-105 group"
                 style={{ marginBottom: "10px" }}
                 >
-                <div className="flex items-center gap-2 font-semibold text-gray-800 text-sm">
+                <div className="flex items-center gap-2 font-semibold text-white text-sm">
                     통합 파일
                 </div>
                 <a
@@ -132,10 +132,11 @@ export default function CurriculumPage() {
                     alt="다운로드 아이콘"
                     width={24}
                     height={24}
-                    className="brightness-0 invert-[0.3]"
+                    className="brightness-0 invert-[1] transition duration-200 group-hover:brightness-200"
                     />
                 </a>
                 </div>
+
 
                 {/* 나머지 8개 학교 */}
                 {schoolsLeft.slice(0, 8).map((school) => (
