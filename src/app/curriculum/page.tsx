@@ -14,6 +14,13 @@ export default function CurriculumPage() {
     "/curriculum/slide2.png",
     "/curriculum/slide3.png",
     "/curriculum/slide4.png",
+    "/curriculum/slide5.png",
+    "/curriculum/slide6.png",
+    "/curriculum/slide7.png",
+    "/curriculum/slide8.png",
+    "/curriculum/slide9.png",
+    "/curriculum/slide10.png",
+    "/curriculum/slide11.png",
   ];
 
   // ✅ 학교 데이터
