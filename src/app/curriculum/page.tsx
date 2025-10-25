@@ -66,32 +66,33 @@ export default function CurriculumPage() {
       {/* ✅ 헤더 */}
       <Header />
 
-      {/* ✅ 오픈 예정 팝업 */}
       {showPopup && (
         <div
-          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
-          onClick={() => setShowPopup(false)}
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+            onClick={() => setShowPopup(false)}
         >
-          <div
-            className="relative w-[90vw] h-[90vh] max-w-[800px] max-h-[600px]"
-            onClick={(e) => e.stopPropagation()} // 배경 클릭 시 닫히지 않게
-          >
-            <Image
-              src="/curriculum/open-soon.png" // 👈 여기에 오픈 예정 이미지 경로
-              alt="오픈 예정"
-              fill
-              className="object-contain"
-              priority
-            />
-            <button
-              onClick={() => setShowPopup(false)}
-              className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/80 rounded-full p-2 text-lg"
+            <div
+            className="relative w-[90vw] h-auto max-w-[550px] bg-transparent rounded-xl overflow-hidden shadow-lg"
+            onClick={(e) => e.stopPropagation()}
             >
-              ✕
+            <Image
+                src="/curriculum/open-soon.png" // 👈 팝업 이미지
+                alt="오픈 예정"
+                width={550}
+                height={650}
+                className="w-full h-auto object-contain"
+                priority
+            />
+            {/* ✅ 닫기 버튼 — 위치 정확히 조정 */}
+            <button
+                onClick={() => setShowPopup(false)}
+                className="absolute -top-3 -right-3 bg-white text-gray-800 rounded-full shadow-md hover:bg-gray-200 transition p-1.5"
+            >
+                ✕
             </button>
-          </div>
+            </div>
         </div>
-      )}
+        )}
 
       {/* ✅ 타이틀 */}
       <section className="w-full bg-[#2A7DE1] text-white py-4 font-semibold text-lg tracking-tight">
