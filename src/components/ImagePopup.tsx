@@ -13,7 +13,7 @@ export default function ImagePopup({
       onClick={onClose}
     >
       <div
-        className="relative w-[90vw] max-w-[550px] bg-transparent rounded-xl overflow-hidden shadow-lg"
+        className="relative w-[90vw] max-w-[600px] bg-transparent rounded-xl overflow-hidden shadow-lg"
         onClick={(e) => e.stopPropagation()} // 바깥 클릭 닫힘 방지
       >
         {/* ✅ 팝업 이미지 */}
