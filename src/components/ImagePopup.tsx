@@ -25,21 +25,6 @@ export default function ImagePopup({
           className="w-full h-auto object-contain"
           priority
         />
-
-        {/* ✅ 닫기 버튼 위치 수정 */}
-        <button
-          onClick={onClose}
-          className="
-            absolute -top-3 -right-3
-            bg-white text-gray-800
-            rounded-full shadow-md
-            hover:bg-gray-200
-            transition
-            w-8 h-8 flex items-center justify-center
-          "
-        >
-          ✕
-        </button>
       </div>
     </div>
   );
