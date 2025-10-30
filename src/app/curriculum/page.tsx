@@ -8,8 +8,6 @@ export default function CurriculumPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
 
-  // ✅ 오픈 예정 팝업 상태
-  const [showPopup, setShowPopup] = useState(true);
 
   // ✅ 카드뉴스 이미지
   const images = [
@@ -66,43 +64,6 @@ export default function CurriculumPage() {
       {/* ✅ 헤더 */}
       <Header />
 
-
-    {/* ✅ 팝업창 */}
-      {showPopup && (
-        <div
-            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
-            onClick={() => setShowPopup(false)}
-        >
-            <div
-            className="relative w-[90vw] h-auto max-w-[550px] bg-transparent rounded-xl overflow-hidden shadow-lg"
-            onClick={(e) => e.stopPropagation()}
-            >
-            <Image
-                src="/curriculum/open-soon.png" // 👈 팝업 이미지
-                alt="오픈 예정"
-                width={550}
-                height={650}
-                className="w-full h-auto object-contain"
-                priority
-            />
-
-            {/* ✅ 닫기 버튼 위치 보정 */}
-            <button
-                onClick={() => setShowPopup(false)}
-                className="
-                absolute top-2 right-2
-                bg-white/90 text-gray-700
-                rounded-full shadow-md
-                hover:bg-gray-100
-                transition
-                w-8 h-8 flex items-center justify-center
-                "
-            >
-                ✕
-            </button>
-            </div>
-        </div>
-        )}
 
 
       {/* ✅ 타이틀 */}
