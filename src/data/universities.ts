@@ -90,5 +90,47 @@ export const universities = [
     title: "2028학년도 모집단위별 관련 교과 안내",
     link: "https://ipsi.chungbuk.ac.kr/kor/BBSMSTR_000000000001/21872/view.do",
   },
+    {
+    name: "한국외국어대학교",
+    eng: "hufs",
+    title: "한국외국어대학교 2026학년도 학생부 전형가이드북",
+    link: "https://adms.hufs.ac.kr/cms/FrCon/index.do?MENU_ID=340#;",
+  },
+    {
+    name: "단국대학교(죽전캠퍼스)",
+    eng: "dankook_jukjeon",
+    title: "단국대학교 (죽전캠퍼스) 2028학년도 모집단위별 이수 권장 과목 안내",
+    link: "https://ipsi.dankook.ac.kr/jukjeon/notice/list.html?bbsid=juk_info&camp_type=&ctg_cd=&page=1&skey=&keyword=&mode=view&bltn_seq=48350",
+  },
+    {
+    name: "단국대학교(천안캠퍼스)",
+    eng: "dankook_cheonan",
+    title: "단국대학교 (천안캠퍼스) 2028학년도 모집단위별 이수 권장 과목 안내",
+    link: "https://ipsi.dankook.ac.kr/cheonan/notice/list.html?bbsid=che_info&camp_type=&ctg_cd=&page=1&skey=&keyword=&mode=view&bltn_seq=48371",
+  },
+    {
+    name: "가톨릭대학교",
+    eng: "catholic",
+    title: "가톨릭대학교 2026학년도 진로진학가이드북",
+    link: "https://ipsi.catholic.ac.kr/detail.do?menuurl=k%2BqZC0HTrql005wmLhNoXA%3D%3D&board_seq=35138&pageNo=1&categoryid=7&userpwd=",
+  },
+    {
+    name: "아주대학교",
+    eng: "ajou",
+    title: "아주대학교 「2028학년도 모집단위별 고등학교 교과 이수 권장 과목」 안내",
+    link: "https://www.iajou.ac.kr/notice/view.php?bn=77457&m_type=&nPage=0&f=&s=",
+  },
+    {
+    name: "연세대학교",
+    eng: "yonsei",
+    title: "연세대학교 2026학년도 학생부교과전형[추천형] 정량평가 반영방법",
+    link: "https://admission.yonsei.ac.kr/seoul/admission/html/counsel/noticeView.asp?BBS_NO=3386&s_code=BBS_SUBJECT&s_data=&s_page=1",
+  },
+    {
+    name: "국립부경대학교",
+    eng: "pknu",
+    title: "2026학년도 국립부경대학교 대학입학전형 시행계획 변경 안내(2025. 5. 2.)",
+    link: "https://iphak.pknu.ac.kr/pknu/board/board.htm?bbsid=notice&ctg_cd=all&ctg_nm=&page=3&skey=&keyword=&con_ctg_cd=&mode=view&code=iphak_help&bltn_seq=991",
+  },
 ];
 
