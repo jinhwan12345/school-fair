@@ -17,7 +17,7 @@ export default function AdmissionInfoPage() {
       {/* 상단 헤더 영역 */}
       <section className="w-full bg-[#2A7DE1] text-white py-4 font-semibold text-lg tracking-tight">
         <div className="max-w-[1200px] mx-auto px-6 text-left">
-          대학별 권장과목 안내
+          대학별 권장과목 안내 (가나다순 정렬)
         </div>
       </section>
 
