@@ -83,8 +83,7 @@ export default function Header() {
             {visitStats ? visitStats.today.toLocaleString() : "-"}
           </span>
           <span>
-            누적 접속자:{260 + " "}
-            {visitStats ? visitStats.total.toLocaleString() : "-"}
+            누적 접속자: {visitStats ? (visitStats.total + 260).toLocaleString() : "-"}
           </span>
         </div>
 
