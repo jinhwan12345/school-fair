@@ -1,39 +1,24 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // ✅ 접속자 수 상태
+  // 🔥 방문자 상태
   const [visitStats, setVisitStats] = useState<{
     total: number;
     today: number;
   } | null>(null);
 
-  // ✅ StrictMode에서 useEffect 2번 도는 것 방지
-  const hasCalledRef = useRef(false);
-
+  // 🔥 /api/visit 호출
   useEffect(() => {
-    if (hasCalledRef.current) return;
-    hasCalledRef.current = true;
-
-    fetch("/api/visit", {
-      method: "POST",
-    })
+    fetch("/api/visit", { method: "POST" })
       .then((res) => res.json())
-      .then((data) => {
-        setVisitStats({
-          total: data.total,
-          today: data.today,
-        });
-      })
-      .catch((err) => {
-        console.error("visit api error", err);
-      });
+      .then((data) => setVisitStats(data));
   }, []);
 
   const menuItems = [
@@ -47,10 +32,7 @@ export default function Header() {
     <header className="w-full bg-white shadow-sm">
       <div className="max-w-[1200px] mx-auto flex justify-between items-center py-4 px-6">
         {/* 로고 */}
-        <Link
-          href="/"
-          className="flex items-center hover:opacity-80 transition-opacity"
-        >
+        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
           <Image
             src="/logo.png"
             alt="수성고교정보 통합시스템 로고"
@@ -76,53 +58,46 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* ✅ 접속자 수 (데스크톱) */}
+        {/* 🔥 접속자 수 (데스크톱) */}
         <div className="hidden md:flex flex-col items-end text-[11px] text-gray-500 leading-tight mr-3">
           <span>
-            오늘 접속자:{" "}
-            {visitStats ? visitStats.today.toLocaleString() : "-"}
+            오늘 접속자: {visitStats?.today?.toLocaleString() ?? "-"}
           </span>
           <span>
-            누적 접속자: {visitStats ? (visitStats.total + 260).toLocaleString() : "-"}
+            누적 접속자: {(visitStats?.total ? visitStats.total + 260 : "-")
+              .toLocaleString?.() ?? "-"}
           </span>
         </div>
 
         {/* 모바일 메뉴 버튼 */}
-        <button
-          className="md:hidden text-gray-700 border rounded px-3 py-1"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
+        <button className="md:hidden text-gray-700 border rounded px-3 py-1">
           메뉴
         </button>
       </div>
 
       {/* 모바일 메뉴 */}
-      {menuOpen && (
-        <div className="md:hidden bg-gray-50 border-t text-sm font-medium text-center py-3 space-y-2">
-          {/* ✅ 모바일 접속자 수 */}
-          <div className="text-[11px] text-gray-500 mb-2">
-            <div>
-              오늘: {visitStats ? visitStats.today.toLocaleString() : "-"}
-            </div>
-            <div>
-              누적: {visitStats ? visitStats.total.toLocaleString() : "-"}
-            </div>
+      <div className="md:hidden bg-gray-50 border-t text-sm font-medium text-center py-3 space-y-2">
+        {/* 🔥 모바일 접속자 수 */}
+        <div className="text-[11px] text-gray-500 mb-2">
+          <div>오늘: {visitStats?.today?.toLocaleString() ?? "-"}</div>
+          <div>
+            누적: {(visitStats?.total ? visitStats.total : "-")
+              .toLocaleString?.() ?? "-"}
           </div>
-
-          {menuItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`block py-1 hover:text-[#2A7DE1] ${
-                pathname === item.href ? "text-[#2A7DE1]" : "text-gray-800"
-              }`}
-              onClick={() => setMenuOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
         </div>
-      )}
+
+        {menuItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`block py-1 hover:text-[#2A7DE1] ${
+              pathname === item.href ? "text-[#2A7DE1]" : "text-gray-800"
+            }`}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
     </header>
   );
 }
