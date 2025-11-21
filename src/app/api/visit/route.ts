@@ -1,54 +1,55 @@
 // app/api/visit/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 
-// ⚠️ 서버 메모리에 저장됨 (재시작하면 초기화)
-let totalCount = 0;
-let todayCount = 0;
-let todayDate = "";
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_KEY!
+);
 
-function getTodayStr() {
-  const now = new Date();
-  // 한국 기준으로 맞추고 싶으면 여기서 KST 변환 로직을 추가해도 됨
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, "0");
-  const d = String(now.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
+function todayStr() {
+  const d = new Date();
+  return d.toISOString().slice(0, 10); // YYYY-MM-DD
 }
 
-export async function POST(req: NextRequest) {
-  const todayStr = getTodayStr();
+export async function POST() {
+  const today = todayStr();
 
-  // 날짜가 바뀌면 todayCount 초기화
-  if (todayDate !== todayStr) {
-    todayDate = todayStr;
+  // 1) 현재 카운터 가져오기
+  const { data, error } = await supabase
+    .from("counter")
+    .select("*")
+    .eq("id", 1)
+    .single();
+
+  if (!data) {
+    return NextResponse.json({ error: "counter record missing" });
+  }
+
+  let { total, today: todayCount, date } = data;
+
+  // 2) 날짜가 바뀌었으면 리셋
+  if (date !== today) {
     todayCount = 0;
   }
 
-  // 쿠키에서 마지막 방문 날짜 확인
-  const lastVisit = req.cookies.get("lastVisitDate")?.value;
+  // 3) 누적/일일 카운트 증가
+  total += 1;
+  todayCount += 1;
 
-  let counted = false;
+  // 4) DB 업데이트
+  await supabase
+    .from("counter")
+    .update({
+      total,
+      today: todayCount,
+      date: today,
+    })
+    .eq("id", 1);
 
-  // 오늘 처음 방문한 브라우저라면 카운트 증가
-  if (lastVisit !== todayStr) {
-    totalCount += 1;
-    todayCount += 1;
-    counted = true;
-  }
-
-  const res = NextResponse.json({
-    total: totalCount,
+  // 5) 응답 반환
+  return NextResponse.json({
+    total,
     today: todayCount,
-    counted, // 오늘 새로 카운트 되었는지 여부 (디버깅용)
   });
-
-  // 오늘 방문했다는 쿠키 저장 (브라우저별 하루 1회)
-  if (counted) {
-    res.cookies.set("lastVisitDate", todayStr, {
-      maxAge: 60 * 60 * 24, // 1일
-      path: "/",
-    });
-  }
-
-  return res;
 }
