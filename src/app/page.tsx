@@ -96,8 +96,6 @@ export default function Home() {
       {/* ✅ 공통 헤더 */}
       <Header />
 
-      {/* ✅ 팝업 모달 */}
-      <PopupModal />   {/* 👉 여기 추가 */}
 
       {/* ✅ 메인 배너 */}
       <section className="w-full">
