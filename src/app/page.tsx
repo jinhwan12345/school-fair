@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import Header from "@/components/Header"; // ✅ 공통 헤더 불러오기
-import PopupModal from "@/components/PopupModal";
 import { agencies } from "@/app/data/agencyData";
 
 

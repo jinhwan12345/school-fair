@@ -14,12 +14,31 @@ export default function Header() {
     today: number;
   } | null>(null);
 
-  // 🔥 /api/visit 호출
   useEffect(() => {
-    fetch("/api/visit", { method: "POST" })
-      .then((res) => res.json())
-      .then((data) => setVisitStats(data));
-  }, []);
+  const loadVisitStats = async () => {
+    try {
+      const res = await fetch("/api/visit", { method: "POST" });
+      console.log("visit API status:", res.status);
+
+      const json = await res.json();
+      console.log("visit API json:", json);
+
+      // total / today 값이 있을 때만 상태로 반영
+      if (typeof json.total === "number" && typeof json.today === "number") {
+        setVisitStats({
+          total: json.total,
+          today: json.today,
+        });
+      } else {
+        console.warn("visit API returned unexpected payload:", json);
+      }
+    } catch (e) {
+      console.error("visit API error:", e);
+    }
+  };
+
+  loadVisitStats();
+}, []);
 
   const menuItems = [
     { name: "수성구 고등학교 안내", href: "/schools_info" },

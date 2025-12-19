@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
 @import "tailwindcss";
 
 :root {
@@ -25,4 +27,3 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
