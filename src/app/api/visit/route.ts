@@ -8,25 +8,61 @@ const supabase = createClient(
 );
 
 function todayStr() {
-  const d = new Date();
-  return d.toISOString().slice(0, 10); // YYYY-MM-DD
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(
+    new Date()
+  );
 }
 
-export async function POST(req: NextRequest) {
+// 1) 조회 전용 (GET): 카운트 증가 없이 현재 통계만 조회
+export async function GET() {
   const today = todayStr();
 
-  // 1) 현재 카운터 가져오기 (없어도 error 안 나게 maybeSingle)
   const { data, error } = await supabase
     .from("counter")
     .select("id,total,today,date")
     .eq("id", 1)
     .maybeSingle();
 
-  console.log("supabase select data:", data);
-  console.log("supabase select error:", error);
+  if (error) {
+    return NextResponse.json(
+      { error: `supabase select error: ${error.message}` },
+      { status: 500 }
+    );
+  }
+
+  if (!data) {
+    return NextResponse.json({
+      total: 260,
+      today: 0,
+    });
+  }
+
+  // 기준일자가 오늘이 아닌 경우 오늘의 방문자는 0으로 처리
+  const isToday = data.date === today;
+  return NextResponse.json({
+    total: data.total ?? 0,
+    today: isToday ? (data.today ?? 0) : 0,
+  });
+}
+
+// 2) 방문 카운트 증가 (POST): 당일 첫 방문 시에만 호출됨
+export async function POST(req: NextRequest) {
+  const today = todayStr();
+
+  // 서버 쿠키 체크: 오늘 이미 방문한 쿠키가 있으면 증가 없이 현재 수치만 반환
+  const visitedCookie = req.cookies.get("visited_today")?.value;
+  if (visitedCookie === today) {
+    return GET();
+  }
+
+  // 1) 현재 카운터 가져오기
+  const { data, error } = await supabase
+    .from("counter")
+    .select("id,total,today,date")
+    .eq("id", 1)
+    .maybeSingle();
 
   if (error) {
-    // 진짜 에러가 있으면 그대로 보여주자 (디버깅용)
     return NextResponse.json(
       { error: `supabase select error: ${error.message}` },
       { status: 500 }
@@ -37,24 +73,20 @@ export async function POST(req: NextRequest) {
   let todayCount: number;
   let date: string;
 
-  // 2) row가 아예 없을 때: 자동으로 생성
+  // 2) row가 아예 없을 때: 초기 생성
   if (!data) {
-    total = 260; // 누적 260에서 시작하고 싶으면 여기
+    total = 260; // 초기 누적 시작값
     todayCount = 1;
     date = today;
 
-    const { data: inserted, error: insertError } = await supabase
+    const { error: insertError } = await supabase
       .from("counter")
       .insert({
         id: 1,
         total,
         today: todayCount,
         date,
-      })
-      .select()
-      .single();
-
-    console.log("supabase insert:", inserted, insertError);
+      });
 
     if (insertError) {
       return NextResponse.json(
@@ -63,18 +95,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       total,
       today: todayCount,
     });
+    res.cookies.set("visited_today", today, {
+      path: "/",
+      maxAge: 60 * 60 * 24,
+      sameSite: "lax",
+    });
+    return res;
   }
 
-  // 3) row가 있을 때: 날짜 체크 후 증가
+  // 3) row가 있을 때: 날짜 체크 후 카운트 증가
   total = data.total ?? 0;
   todayCount = data.today ?? 0;
   date = data.date as string;
 
-  // 날짜 바뀌면 todayCount 리셋
+  // 날짜가 바뀌었으면 오늘 카운트 0으로 초기화
   if (date !== today) {
     todayCount = 0;
     date = today;
@@ -92,8 +130,6 @@ export async function POST(req: NextRequest) {
     })
     .eq("id", 1);
 
-  console.log("supabase update error:", updateError);
-
   if (updateError) {
     return NextResponse.json(
       { error: `supabase update error: ${updateError.message}` },
@@ -101,8 +137,14 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  return NextResponse.json({
+  const res = NextResponse.json({
     total,
     today: todayCount,
   });
+  res.cookies.set("visited_today", today, {
+    path: "/",
+    maxAge: 60 * 60 * 24,
+    sameSite: "lax",
+  });
+  return res;
 }
