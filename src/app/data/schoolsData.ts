@@ -126,7 +126,7 @@ export const schoolsData = [
     mainImage: "/schools/daegu-jungang/main.png.png",
     info: {
       주소: "대구광역시 수성구 신천동로 496 , 대구중앙고등학교 (수성동4가)",
-      홈페이지: "http://www.joongang.hs.kr",
+      홈페이지: "https://joongang.dge.hs.kr",
       "고교 유형": "일반",
       "남녀 구분": "남녀공학",
       "선발 시기": "후기",
@@ -146,7 +146,7 @@ export const schoolsData = [
     mainImage: "/schools/hyehwa/main.png.png",
     info: {
       주소: "대구광역시 수성구 교학로12길 62 (만촌동, 혜화여자고등학교)",
-      홈페이지: "http://www.hyehwa.hs.kr",
+      홈페이지: "https://hyehwa.dge.hs.kr",
       "고교 유형": "일반",
       "남녀 구분": "여",
       "선발 시기": "후기",
@@ -206,7 +206,7 @@ export const schoolsData = [
     mainImage: "/schools/dongmun/main.png.png",
     info: {
       주소: "대구광역시 수성구 효행로 17 (만촌동, 동문고등학교)",
-      홈페이지: "http://www.dongmoon.hs.kr",
+      홈페이지: "https://dongmoon.dge.hs.kr",
       "고교 유형": "일반",
       "남녀 구분": "남녀공학",
       "선발 시기": "후기",
@@ -266,7 +266,7 @@ export const schoolsData = [
     mainImage: "/schools/yeongnam-tech/main.png.png",
     info: {
       주소: "대구광역시 수성구 교학로 96 (만촌동, 영남공업고등학교)",
-      홈페이지: "http://www.ynth.hs.kr",
+      홈페이지: "https://ynth.dge.hs.kr",
       "고교 유형": "특성화",
       "남녀 구분": "남녀공학",
       "선발 시기": "전기",
@@ -286,7 +286,7 @@ export const schoolsData = [
     mainImage: "/schools/oseong/main.png.png",
     info: {
       주소: "대구 수성구 달구벌대로522길 78 (만촌동,오성고등학교)",
-      홈페이지: "http://www.osung.hs.kr",
+      홈페이지: "https://osung.dge.hs.kr",
       "고교 유형": "일반",
       "남녀 구분": "남",
       "선발 시기": "후기",
