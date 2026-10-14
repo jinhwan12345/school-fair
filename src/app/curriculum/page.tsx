@@ -75,11 +75,8 @@ export default function CurriculumPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [, setDirection] = useState<"next" | "prev">("next");
 
-  // 학교 비교 선택 상태 (기본값: 경북고, 경신고)
-  const [selectedSchoolIds, setSelectedSchoolIds] = useState<string[]>([
-    "kyungbuk",
-    "kyungshin",
-  ]);
+  // 학교 비교 선택 상태 (기본값: 선택 없음)
+  const [selectedSchoolIds, setSelectedSchoolIds] = useState<string[]>([]);
 
   // 교과(군) 선택 필터 (기본: 전체)
   const [selectedGroup, setSelectedGroup] = useState<string>("전체");
@@ -344,15 +341,9 @@ export default function CurriculumPage() {
                   </button>
                 )}
                 {selectedSchools.length === 0 && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setSelectedSchoolIds(["kyungbuk", "kyungshin"])
-                    }
-                    className="text-xs text-[#2A7DE1] hover:underline font-semibold cursor-pointer"
-                  >
-                    경북고 vs 경신고 선택
-                  </button>
+                  <span className="text-xs text-gray-400">
+                    아래에서 학교를 클릭하세요
+                  </span>
                 )}
               </div>
             </div>
@@ -400,16 +391,9 @@ export default function CurriculumPage() {
               <h3 className="text-base font-bold text-gray-800">
                 비교할 고등학교를 선택해주세요
               </h3>
-              <p className="text-xs text-gray-500 mt-1">
-                위 목록에서 학교를 클릭하면 해당 학교들의 교과군별 편성 과목 및 이수 학기를 비교할 수 있습니다.
+              <p className="text-xs text-gray-500 mt-1.5">
+                상단의 16개 고등학교 중 원하는 학교를 클릭하면 교과군별 편성 과목 및 이수 학기를 실시간으로 비교할 수 있습니다.
               </p>
-              <button
-                type="button"
-                onClick={() => setSelectedSchoolIds(["kyungbuk", "kyungshin"])}
-                className="mt-4 px-4 py-2 bg-[#2A7DE1] text-white rounded-lg text-xs font-semibold hover:bg-blue-600 transition cursor-pointer"
-              >
-                경북고 & 경신고 비교하기
-              </button>
             </div>
           ) : (
             <>
