@@ -5,7 +5,6 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import curriculumRawData from "@/data/curriculumData.json";
-import { schoolsData } from "@/app/data/schoolsData";
 
 interface SemesterInfo {
   semester: string;
@@ -26,6 +25,7 @@ interface CurriculumSubject {
   standardGroup: string;
   subjectType: string;
   subjectName: string;
+  departmentTrack?: string | null;
   defaultCredit: number | null;
   operatingCredit: number | null;
   semesters: SemesterInfo[];
@@ -34,7 +34,7 @@ interface CurriculumSubject {
 
 const curriculumData: CurriculumSubject[] = curriculumRawData as CurriculumSubject[];
 
-// 15개 고등학교 목록 (엑셀 데이터 기준)
+// 16개 고등학교 목록 (2026학년도 입학생 기준)
 const curriculumSchools = [
   { id: "kyungbuk", name: "경북고등학교" },
   { id: "kyungshin", name: "경신고등학교" },
@@ -50,23 +50,24 @@ const curriculumSchools = [
   { id: "suseong", name: "수성고등학교" },
   { id: "siji", name: "시지고등학교" },
   { id: "oseong", name: "오성고등학교" },
+  { id: "yeongnam-tech", name: "영남공업고등학교" },
   { id: "junghwa", name: "정화여자고등학교" },
 ];
 
-// D열 교과(군) 표준 카테고리 목록
+// D열 교과(군) 표준 카테고리 목록 (과한 이모지 제거, 깔끔한 텍스트 탭)
 const subjectGroups = [
-  { key: "전체", name: "전체", icon: "📋" },
-  { key: "국어", name: "국어", icon: "📚" },
-  { key: "수학", name: "수학", icon: "📐" },
-  { key: "영어", name: "영어", icon: "🔤" },
-  { key: "사회", name: "사회(역사/도덕)", icon: "🌏" },
-  { key: "과학", name: "과학", icon: "🔬" },
-  { key: "체육", name: "체육", icon: "🏃" },
-  { key: "예술", name: "예술(음악/미술)", icon: "🎨" },
-  { key: "기술·가정/정보", name: "기술·가정/정보", icon: "💻" },
-  { key: "제2외국어/한문", name: "제2외국어/한문", icon: "🌐" },
-  { key: "교양", name: "교양", icon: "📖" },
-  { key: "전문교과", name: "전문교과", icon: "⚙️" },
+  { key: "전체", name: "전체" },
+  { key: "국어", name: "국어" },
+  { key: "수학", name: "수학" },
+  { key: "영어", name: "영어" },
+  { key: "사회", name: "사회(역사/도덕)" },
+  { key: "과학", name: "과학" },
+  { key: "체육", name: "체육" },
+  { key: "예술", name: "예술(음악/미술)" },
+  { key: "기술·가정/정보", name: "기술·가정/정보" },
+  { key: "제2외국어/한문", name: "제2외국어/한문" },
+  { key: "교양", name: "교양" },
+  { key: "전문교과", name: "전문교과" },
 ];
 
 export default function CurriculumPage() {
@@ -92,7 +93,7 @@ export default function CurriculumPage() {
   // 과목명 검색어
   const [searchKeyword, setSearchKeyword] = useState<string>("");
 
-  // 활성 섹션 탭 (비교하기 / 카드뉴스 및 다운로드)
+  // 활성 섹션 탭 (과목 비교 / 카드뉴스 및 다운로드)
   const [activeTab, setActiveTab] = useState<"compare" | "overview">("compare");
 
   // 카드뉴스 이미지
@@ -197,7 +198,8 @@ export default function CurriculumPage() {
         const nameMatch = item.subjectName.toLowerCase().includes(kw);
         const groupMatch = item.rawGroup.toLowerCase().includes(kw);
         const typeMatch = item.subjectType.toLowerCase().includes(kw);
-        if (!nameMatch && !groupMatch && !typeMatch) return false;
+        const trackMatch = item.departmentTrack?.toLowerCase().includes(kw);
+        if (!nameMatch && !groupMatch && !typeMatch && !trackMatch) return false;
       }
 
       return true;
@@ -240,44 +242,53 @@ export default function CurriculumPage() {
   }, [selectedGroup, groupCounts]);
 
   return (
-    <main className="flex flex-col bg-[#f9fafb] text-gray-900 min-h-screen">
+    <main className="flex flex-col bg-[#f8fafc] text-gray-900 min-h-screen">
       <Header />
 
-      {/* 상단 타이틀 */}
-      <section className="w-full bg-[#2A7DE1] text-white py-6 shadow-sm">
+      {/* 상단 헤더 타이틀 */}
+      <section className="w-full bg-[#2A7DE1] text-white py-6 shadow-xs">
         <div className="max-w-[1240px] mx-auto px-4 md:px-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xs font-semibold bg-white/20 text-white px-2 py-0.5 rounded">
+                  2026학년도 입학생 기준
+                </span>
+                <span className="text-xs text-blue-100">
+                  3개년간 교육과정 편성표
+                </span>
+              </div>
               <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
                 수성구 고등학교 교육과정
               </h1>
-              <p className="text-blue-100 text-sm md:text-base mt-1.5">
-                학교별 3개년 교육과정 편성표 비교 및 교과군별(국·수·영 등) 세부 과목 이수 학기 조회
+              <p className="text-blue-100 text-xs md:text-sm mt-1">
+                학교별 개설 과목, 교과군(국·수·영 등) 분류 및 이수 학년·학기 상세 비교
               </p>
             </div>
-            {/* 탭 전환 버튼 */}
-            <div className="inline-flex rounded-lg bg-blue-800/40 p-1 border border-blue-400/30">
+
+            {/* 상단 탭 전환 버튼 */}
+            <div className="inline-flex rounded-lg bg-blue-900/30 p-1 border border-blue-300/30 self-start md:self-auto">
               <button
                 type="button"
                 onClick={() => setActiveTab("compare")}
-                className={`px-4 py-2 rounded-md text-sm font-semibold transition ${
+                className={`px-4 py-2 rounded-md text-xs md:text-sm font-semibold transition cursor-pointer ${
                   activeTab === "compare"
-                    ? "bg-white text-[#2A7DE1] shadow-sm"
+                    ? "bg-white text-[#2A7DE1] shadow-xs"
                     : "text-white hover:text-blue-100"
                 }`}
               >
-                📊 학교별 과목 비교
+                학교별 과목 비교
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab("overview")}
-                className={`px-4 py-2 rounded-md text-sm font-semibold transition ${
+                className={`px-4 py-2 rounded-md text-xs md:text-sm font-semibold transition cursor-pointer ${
                   activeTab === "overview"
-                    ? "bg-white text-[#2A7DE1] shadow-sm"
+                    ? "bg-white text-[#2A7DE1] shadow-xs"
                     : "text-white hover:text-blue-100"
                 }`}
               >
-                📑 카드뉴스 & 편제표 다운로드
+                카드뉴스 및 편제표 다운로드
               </button>
             </div>
           </div>
@@ -286,28 +297,26 @@ export default function CurriculumPage() {
 
       {/* 1. 학교별 과목 비교 섹션 */}
       {activeTab === "compare" && (
-        <section className="max-w-[1240px] w-full mx-auto px-4 md:px-6 py-8">
-          {/* 학교 선택 컨트롤 패널 (고등학교 안내 페이지 스타일) */}
-          <div className="bg-white rounded-2xl border border-gray-200/90 shadow-sm p-5 md:p-6 mb-8">
-            <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 pb-4 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-[#2A7DE1] font-bold text-sm">
-                  1
-                </span>
+        <section className="max-w-[1240px] w-full mx-auto px-4 md:px-6 py-7">
+          {/* 학교 선택 컨트롤 패널 */}
+          <div className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 md:p-6 mb-6">
+            <div className="flex flex-col md:flex-row justify-between md:items-center gap-3 pb-4 border-b border-gray-100">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2 h-5 bg-[#2A7DE1] rounded-sm"></span>
                 <div>
-                  <h2 className="text-lg font-bold text-gray-900">
+                  <h2 className="text-base md:text-lg font-bold text-gray-900">
                     비교할 고등학교 선택
                   </h2>
                   <p className="text-xs text-gray-500 mt-0.5">
-                    비교하고 싶은 학교를 선택하세요 (최대 4개교 동시 비교 가능)
+                    비교할 학교를 선택하세요 (최대 4개교 동시 비교)
                   </p>
                 </div>
               </div>
 
               {/* 선택된 학교 태그 바 */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-bold bg-blue-50 text-[#2A7DE1] px-2.5 py-1 rounded-full border border-blue-200">
-                  {selectedSchools.length}개 선택됨 (최대 4개)
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-xs font-semibold bg-blue-50 text-[#2A7DE1] px-2.5 py-1 rounded-full border border-blue-200">
+                  {selectedSchools.length}개교 선택
                 </span>
                 {selectedSchools.map((s) => (
                   <span
@@ -331,7 +340,7 @@ export default function CurriculumPage() {
                     onClick={() => setSelectedSchoolIds([])}
                     className="text-xs text-gray-400 hover:text-gray-600 underline cursor-pointer ml-1"
                   >
-                    전체 해제
+                    초기화
                   </button>
                 )}
                 {selectedSchools.length === 0 && (
@@ -348,8 +357,8 @@ export default function CurriculumPage() {
               </div>
             </div>
 
-            {/* 학교 선택 그리드 버튼 */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 mt-4">
+            {/* 16개 학교 선택 그리드 */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2 mt-4">
               {curriculumSchools.map((school) => {
                 const isSelected = selectedSchoolIds.includes(school.id);
                 return (
@@ -357,13 +366,13 @@ export default function CurriculumPage() {
                     key={school.id}
                     type="button"
                     onClick={() => toggleSchoolSelection(school.id)}
-                    className={`flex items-center gap-2 p-2.5 rounded-xl border text-left transition duration-150 cursor-pointer ${
+                    className={`flex items-center gap-2 p-2 rounded-lg border text-left transition duration-150 cursor-pointer ${
                       isSelected
-                        ? "bg-blue-50/70 border-[#2A7DE1] text-[#2A7DE1] shadow-xs font-bold ring-2 ring-blue-100"
+                        ? "bg-blue-50/80 border-[#2A7DE1] text-[#2A7DE1] font-bold shadow-2xs ring-1 ring-blue-200"
                         : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
                     }`}
                   >
-                    <div className="relative w-7 h-7 flex-shrink-0 bg-white rounded-md p-0.5 border border-gray-100">
+                    <div className="relative w-6 h-6 flex-shrink-0 bg-white rounded p-0.5 border border-gray-100">
                       <Image
                         src={`/schools/${school.id}/logo.png`}
                         alt={`${school.name} 로고`}
@@ -371,9 +380,11 @@ export default function CurriculumPage() {
                         className="object-contain"
                       />
                     </div>
-                    <span className="text-xs truncate flex-1">{school.name}</span>
+                    <span className="text-[11px] truncate flex-1 leading-tight">
+                      {school.name}
+                    </span>
                     {isSelected && (
-                      <span className="w-4 h-4 rounded-full bg-[#2A7DE1] text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">
+                      <span className="w-3.5 h-3.5 rounded-full bg-[#2A7DE1] text-white flex items-center justify-center text-[9px] font-black flex-shrink-0">
                         ✓
                       </span>
                     )}
@@ -383,49 +394,46 @@ export default function CurriculumPage() {
             </div>
           </div>
 
-          {/* 학교 미선택 안내 */}
+          {/* 학교 미선택 상태 */}
           {selectedSchools.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center text-gray-500 shadow-sm">
-              <div className="text-4xl mb-3">🏫</div>
+            <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-500 shadow-xs">
               <h3 className="text-base font-bold text-gray-800">
-                비교할 고등학교를 1개 이상 선택해주세요
+                비교할 고등학교를 선택해주세요
               </h3>
-              <p className="text-sm text-gray-500 mt-1">
-                위 목록에서 학교를 클릭하면 교과군별 과목명 및 이수학년/학기 편성표가 실시간 비교됩니다.
+              <p className="text-xs text-gray-500 mt-1">
+                위 목록에서 학교를 클릭하면 해당 학교들의 교과군별 편성 과목 및 이수 학기를 비교할 수 있습니다.
               </p>
               <button
                 type="button"
                 onClick={() => setSelectedSchoolIds(["kyungbuk", "kyungshin"])}
-                className="mt-4 px-4 py-2 bg-[#2A7DE1] text-white rounded-lg text-sm font-semibold hover:bg-blue-600 transition"
+                className="mt-4 px-4 py-2 bg-[#2A7DE1] text-white rounded-lg text-xs font-semibold hover:bg-blue-600 transition cursor-pointer"
               >
                 경북고 & 경신고 비교하기
               </button>
             </div>
           ) : (
             <>
-              {/* 2. 교과(군) 및 조건 필터 패널 */}
-              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 md:p-6 mb-6">
+              {/* 2. 교과(군) 탭 및 상세 필터 */}
+              <div className="bg-white rounded-xl border border-gray-200 shadow-xs p-5 md:p-6 mb-6">
                 <div className="flex flex-col gap-4">
-                  {/* 교과(군) 탭 (국어, 수학, 영어 등) */}
+                  {/* 교과(군) 탭 */}
                   <div>
                     <div className="flex items-center justify-between mb-2.5">
                       <div className="flex items-center gap-2">
-                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-[#2A7DE1] font-bold text-xs">
-                          2
-                        </span>
-                        <span className="text-sm font-bold text-gray-800">
-                          교과(군) 선택 (D열)
+                        <span className="w-2 h-4 bg-gray-600 rounded-xs"></span>
+                        <span className="text-xs md:text-sm font-bold text-gray-800">
+                          교과(군) 선택
                         </span>
                       </div>
                       <span className="text-xs text-gray-500">
-                        선택된 학교 전체 개설 과목:{" "}
+                        선택 학교 개설 과목:{" "}
                         <strong className="text-[#2A7DE1]">
                           {filteredData.length}개
                         </strong>
                       </span>
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {subjectGroups.map((group) => {
                         const count = groupCounts[group.key] || 0;
                         const isSelected = selectedGroup === group.key;
@@ -436,16 +444,15 @@ export default function CurriculumPage() {
                             key={group.key}
                             type="button"
                             onClick={() => setSelectedGroup(group.key)}
-                            className={`px-3 py-1.5 rounded-lg text-xs md:text-sm font-medium transition flex items-center gap-1.5 cursor-pointer ${
+                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1.5 cursor-pointer ${
                               isSelected
-                                ? "bg-[#2A7DE1] text-white shadow-xs font-bold"
+                                ? "bg-[#2A7DE1] text-white shadow-2xs font-bold"
                                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                             }`}
                           >
-                            <span>{group.icon}</span>
                             <span>{group.name}</span>
                             <span
-                              className={`text-[11px] px-1.5 py-0.5 rounded-full ${
+                              className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                                 isSelected
                                   ? "bg-white/25 text-white"
                                   : "bg-gray-200 text-gray-600"
@@ -459,10 +466,10 @@ export default function CurriculumPage() {
                     </div>
                   </div>
 
-                  {/* 세부 필터 (학년, 구분, 과목 검색) */}
+                  {/* 세부 필터 (학년, 구분, 과목명 검색) */}
                   <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 pt-3 border-t border-gray-100">
                     <div className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="text-gray-500 font-medium">상세 필터:</span>
+                      <span className="text-gray-500 font-medium">필터:</span>
                       {/* 학년 필터 */}
                       <div className="inline-flex rounded-md bg-gray-100 p-0.5 border border-gray-200">
                         <button
@@ -492,7 +499,7 @@ export default function CurriculumPage() {
                         ))}
                       </div>
 
-                      {/* 과목 구분 필터 */}
+                      {/* 구분 필터 */}
                       <div className="inline-flex rounded-md bg-gray-100 p-0.5 border border-gray-200">
                         <button
                           type="button"
@@ -503,7 +510,7 @@ export default function CurriculumPage() {
                               : "text-gray-600 hover:text-gray-900"
                           }`}
                         >
-                          지정/선택 전체
+                          전체 구분
                         </button>
                         <button
                           type="button"
@@ -514,7 +521,7 @@ export default function CurriculumPage() {
                               : "text-gray-600 hover:text-gray-900"
                           }`}
                         >
-                          학교지정만
+                          학교지정
                         </button>
                         <button
                           type="button"
@@ -525,23 +532,20 @@ export default function CurriculumPage() {
                               : "text-gray-600 hover:text-gray-900"
                           }`}
                         >
-                          학생선택만
+                          학생선택
                         </button>
                       </div>
                     </div>
 
                     {/* 과목명 검색창 */}
-                    <div className="relative min-w-[220px]">
+                    <div className="relative min-w-[200px]">
                       <input
                         type="text"
                         value={searchKeyword}
                         onChange={(e) => setSearchKeyword(e.target.value)}
                         placeholder="과목명 검색 (예: 미적분, 물리...)"
-                        className="w-full text-xs pl-8 pr-7 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-white"
+                        className="w-full text-xs pl-3 pr-7 py-1.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400 bg-white"
                       />
-                      <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs">
-                        🔍
-                      </span>
                       {searchKeyword && (
                         <button
                           type="button"
@@ -557,30 +561,27 @@ export default function CurriculumPage() {
               </div>
 
               {/* 3. 과목 비교 메인 뷰 */}
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {activeGroups.map((group) => {
                   return (
                     <div
                       key={group.key}
-                      className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"
+                      className="bg-white rounded-xl border border-gray-200 shadow-xs overflow-hidden"
                     >
-                      {/* 교과군 헤더 바 */}
-                      <div className="bg-gradient-to-r from-gray-50 to-gray-100/60 px-5 py-3.5 border-b border-gray-200 flex items-center justify-between">
+                      {/* 교과군 헤더 */}
+                      <div className="bg-gray-50 px-5 py-3 border-b border-gray-200 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="text-xl">{group.icon}</span>
-                          <h3 className="font-bold text-gray-900 text-base">
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#2A7DE1]"></span>
+                          <h3 className="font-bold text-gray-900 text-sm md:text-base">
                             {group.name}
                           </h3>
-                          <span className="text-xs bg-gray-200/80 text-gray-700 font-semibold px-2 py-0.5 rounded-full">
-                            교과(군)
-                          </span>
                         </div>
                         <span className="text-xs text-gray-500">
-                          선택 학교 전체 {filteredData.filter((d) => d.standardGroup === group.key).length}개 과목 개설
+                          개설 {filteredData.filter((d) => d.standardGroup === group.key).length}개 과목
                         </span>
                       </div>
 
-                      {/* 학교별 비교 열 (Side by Side 그리드) */}
+                      {/* 학교별 병렬 열 (Side by Side) */}
                       <div
                         className={`grid divide-y md:divide-y-0 md:divide-x divide-gray-200 ${
                           selectedSchools.length === 1
@@ -601,10 +602,10 @@ export default function CurriculumPage() {
 
                           return (
                             <div key={school.id} className="flex flex-col bg-white">
-                              {/* 학교 카드 헤더 */}
-                              <div className="p-3.5 bg-gray-50/60 border-b border-gray-100 flex items-center justify-between sticky top-0 z-10">
+                              {/* 학교 열 헤더 */}
+                              <div className="p-3 bg-gray-50/70 border-b border-gray-100 flex items-center justify-between sticky top-0 z-10">
                                 <div className="flex items-center gap-2 min-w-0">
-                                  <div className="relative w-6 h-6 flex-shrink-0 bg-white rounded p-0.5 border border-gray-200">
+                                  <div className="relative w-5 h-5 flex-shrink-0 bg-white rounded p-0.5 border border-gray-200">
                                     <Image
                                       src={`/schools/${school.id}/logo.png`}
                                       alt={`${school.name} 로고`}
@@ -612,20 +613,20 @@ export default function CurriculumPage() {
                                       className="object-contain"
                                     />
                                   </div>
-                                  <span className="font-bold text-xs md:text-sm text-gray-900 truncate">
+                                  <span className="font-bold text-xs text-gray-900 truncate">
                                     {school.name}
                                   </span>
                                 </div>
-                                <span className="text-[11px] font-semibold text-[#2A7DE1] bg-blue-50 px-2 py-0.5 rounded-full flex-shrink-0 border border-blue-100">
+                                <span className="text-[11px] font-semibold text-[#2A7DE1] bg-blue-50 px-2 py-0.5 rounded flex-shrink-0 border border-blue-100">
                                   {schoolSubjects.length}과목
                                 </span>
                               </div>
 
                               {/* 과목 리스트 */}
-                              <div className="p-3 space-y-2.5 flex-1 min-h-[120px]">
+                              <div className="p-3 space-y-2 flex-1 min-h-[100px]">
                                 {schoolSubjects.length === 0 ? (
-                                  <div className="h-full min-h-[100px] flex items-center justify-center text-xs text-gray-400 bg-gray-50/50 rounded-xl border border-dashed border-gray-200 p-4 text-center">
-                                    해당 조건의 개설 과목 없음
+                                  <div className="h-full min-h-[80px] flex items-center justify-center text-xs text-gray-400 bg-gray-50/40 rounded-lg border border-dashed border-gray-200 p-3 text-center">
+                                    개설 과목 없음
                                   </div>
                                 ) : (
                                   schoolSubjects.map((subject) => {
@@ -634,37 +635,41 @@ export default function CurriculumPage() {
                                     return (
                                       <div
                                         key={subject.id}
-                                        className="p-3 rounded-xl border border-gray-200/90 bg-white hover:border-[#2A7DE1]/50 hover:shadow-xs transition duration-150 flex flex-col gap-2"
+                                        className="p-2.5 rounded-lg border border-gray-200 bg-white hover:border-[#2A7DE1]/60 hover:shadow-2xs transition flex flex-col gap-1.5"
                                       >
-                                        {/* 1행: 과목명 및 유형 뱃지 */}
+                                        {/* 1행: 과목명 및 뱃지 */}
                                         <div className="flex items-start justify-between gap-1.5">
-                                          <span className="font-bold text-sm text-gray-900 leading-snug">
-                                            {subject.subjectName}
-                                          </span>
+                                          <div className="flex flex-col min-w-0">
+                                            <span className="font-bold text-xs text-gray-900 leading-snug">
+                                              {subject.subjectName}
+                                            </span>
+                                            {subject.departmentTrack && (
+                                              <span className="text-[10px] text-gray-500 truncate">
+                                                {subject.departmentTrack}
+                                              </span>
+                                            )}
+                                          </div>
                                           <div className="flex items-center gap-1 flex-shrink-0">
                                             <span
-                                              className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                                              className={`text-[10px] font-semibold px-1.5 py-0.2 rounded ${
                                                 isDesignated
-                                                  ? "bg-blue-100 text-[#2A7DE1]"
-                                                  : "bg-purple-100 text-purple-700"
+                                                  ? "bg-blue-50 text-[#2A7DE1] border border-blue-100"
+                                                  : "bg-purple-50 text-purple-700 border border-purple-100"
                                               }`}
                                             >
                                               {isDesignated ? "지정" : "선택"}
                                             </span>
                                             {subject.subjectType && (
-                                              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-gray-100 text-gray-600">
+                                              <span className="text-[10px] font-normal px-1 py-0.2 rounded bg-gray-100 text-gray-600">
                                                 {subject.subjectType}
                                               </span>
                                             )}
                                           </div>
                                         </div>
 
-                                        {/* 2행: 이수학년 및 학기 (핵심 정보) */}
-                                        <div className="flex flex-col gap-1 bg-gray-50/80 p-2 rounded-lg border border-gray-100">
-                                          <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wide">
-                                            이수 학년 및 학기
-                                          </span>
-                                          <div className="flex flex-wrap gap-1.5">
+                                        {/* 2행: 이수 학년 및 학기 */}
+                                        <div className="bg-gray-50 p-1.5 rounded border border-gray-100">
+                                          <div className="flex flex-wrap gap-1">
                                             {subject.semesters.length > 0 ? (
                                               subject.semesters.map((sem, sIdx) => {
                                                 const gradeColor =
@@ -677,34 +682,30 @@ export default function CurriculumPage() {
                                                 return (
                                                   <span
                                                     key={sIdx}
-                                                    className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-md border ${gradeColor}`}
+                                                    className={`inline-flex items-center gap-0.5 text-[10px] font-semibold px-1.5 py-0.5 rounded border ${gradeColor}`}
                                                   >
                                                     <span>{sem.semester}</span>
-                                                    <span className="text-[10px] opacity-80 font-normal">
+                                                    <span className="text-[9px] opacity-80 font-normal">
                                                       ({sem.isDirect ? `${sem.value}학점` : `선택:${sem.value}`})
                                                     </span>
                                                   </span>
                                                 );
                                               })
                                             ) : (
-                                              <span className="text-[11px] text-gray-400">
+                                              <span className="text-[10px] text-gray-400">
                                                 {subject.semesterSummary}
                                               </span>
                                             )}
                                           </div>
                                         </div>
 
-                                        {/* 3행: 세부 정보 (운영학점 / 교과군 세부) */}
-                                        <div className="flex items-center justify-between text-[11px] text-gray-500 pt-0.5 border-t border-gray-100/80">
-                                          <span>
-                                            {subject.groupBlock && (
-                                              <span className="text-gray-600">
-                                                {subject.groupBlock}
-                                              </span>
-                                            )}
+                                        {/* 3행: 운영학점 및 편제군 */}
+                                        <div className="flex items-center justify-between text-[10px] text-gray-500 pt-0.5">
+                                          <span className="truncate max-w-[120px]">
+                                            {subject.groupBlock || ""}
                                           </span>
-                                          <span className="font-medium text-gray-700">
-                                            운영학점:{" "}
+                                          <span className="font-medium text-gray-700 flex-shrink-0">
+                                            운영:{" "}
                                             <strong>
                                               {subject.operatingCredit ?? subject.defaultCredit ?? "-"}
                                             </strong>
@@ -732,8 +733,8 @@ export default function CurriculumPage() {
       {/* 2. 카드뉴스 및 편제표 다운로드 섹션 */}
       {activeTab === "overview" && (
         <section className="max-w-[1200px] w-full mx-auto px-4 py-12 flex flex-col lg:flex-row justify-between items-start gap-10">
-          {/* 왼쪽 카드뉴스 슬라이드 */}
-          <div className="relative flex justify-center items-center w-full lg:w-[620px] h-[620px] bg-gray-100 rounded-2xl overflow-hidden shadow">
+          {/* 카드뉴스 슬라이드 */}
+          <div className="relative flex justify-center items-center w-full lg:w-[620px] h-[620px] bg-gray-100 rounded-xl overflow-hidden shadow-xs">
             <div
               className="flex transition-transform duration-1000 ease-in-out w-full h-full"
               style={{
@@ -755,27 +756,26 @@ export default function CurriculumPage() {
               ))}
             </div>
 
-            {/* 화살표 버튼 */}
             <button
               onClick={prevSlide}
               aria-label="이전 카드뉴스"
-              className="absolute left-3 bg-white/80 rounded-full p-2.5 shadow hover:bg-white transition cursor-pointer text-sm"
+              className="absolute left-3 bg-white/80 rounded-full p-2.5 shadow hover:bg-white transition cursor-pointer text-xs"
             >
               ◀
             </button>
             <button
               onClick={nextSlide}
               aria-label="다음 카드뉴스"
-              className="absolute right-3 bg-white/80 rounded-full p-2.5 shadow hover:bg-white transition cursor-pointer text-sm"
+              className="absolute right-3 bg-white/80 rounded-full p-2.5 shadow hover:bg-white transition cursor-pointer text-xs"
             >
               ▶
             </button>
           </div>
 
-          {/* 오른쪽 학교별 PDF 및 통합 파일 다운로드 리스트 */}
+          {/* 학교별 PDF 및 통합 파일 다운로드 리스트 */}
           <div className="flex flex-col w-full lg:w-[480px] items-center">
-            {/* 통합 파일 다운로드 */}
-            <div className="flex items-center justify-between bg-[#f3bd8c] border border-[#f3bd8c] rounded-xl px-4 h-[60px] shadow-sm transition hover:brightness-105 group w-full mb-[10px]">
+            {/* 통합 엑셀 다운로드 */}
+            <div className="flex items-center justify-between bg-[#f3bd8c] border border-[#f3bd8c] rounded-xl px-4 h-[60px] shadow-xs transition hover:brightness-105 group w-full mb-[10px]">
               <div className="flex items-center justify-center gap-2 font-bold text-white text-sm text-center">
                 통합 3개년 교육과정 편성표 (Excel)
               </div>
@@ -795,14 +795,14 @@ export default function CurriculumPage() {
               </a>
             </div>
 
-            {/* 학교 16개 (대구과학고 제외) */}
+            {/* 학교 목록 */}
             <div className="grid grid-cols-2 gap-[10px] w-full">
               {[...schoolsLeft, ...schoolsRight.filter((s) => s.eng !== "daegu-science")]
                 .slice(0, 16)
                 .map((school) => (
                   <div
                     key={school.eng}
-                    className="flex items-center justify-between border border-gray-300 rounded-xl px-3 h-[60px] bg-white shadow-xs transition group hover:border-[#2A7DE1]"
+                    className="flex items-center justify-between border border-gray-300 rounded-xl px-3 h-[60px] bg-white shadow-2xs transition group hover:border-[#2A7DE1]"
                   >
                     <div className="flex items-center gap-2 min-w-0">
                       <Image

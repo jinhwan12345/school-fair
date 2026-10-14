@@ -32,24 +32,26 @@ const schoolIdMap = {
   '수성고등학교': 'suseong',
   '시지고등학교': 'siji',
   '오성고등학교': 'oseong',
+  '영남공업고등학교': 'yeongnam-tech',
   '정화여자고등학교': 'junghwa'
 };
 
-function normalizeGroup(rawGroup) {
-  if (!rawGroup) return '기타';
-  const g = String(rawGroup).replace(/[\r\n\s]+/g, ' ').trim();
-  if (g.includes('국어')) return '국어';
-  if (g.includes('수학')) return '수학';
-  if (g.includes('영어')) return '영어';
-  if (g.includes('사회') || g.includes('역사') || g.includes('도덕')) return '사회';
-  if (g.includes('과학')) return '과학';
-  if (g.includes('체육')) return '체육';
-  if (g.includes('예술') || g.includes('음악') || g.includes('미술')) return '예술';
-  if (g.includes('제2외국어') || g.includes('한문') || g.includes('일본어') || g.includes('중국어')) return '제2외국어/한문';
-  if (g.includes('정보') || g.includes('기술') || g.includes('가정')) return '기술·가정/정보';
-  if (g.includes('교양') || g.includes('철학') || g.includes('심리') || g.includes('논술')) return '교양';
-  if (g.includes('농림') || g.includes('건축') || g.includes('식품') || g.includes('경영') || g.includes('화학공업')) return '전문교과';
-  return g;
+function normalizeGroup(rawGroup, subjectName) {
+  let g = rawGroup ? String(rawGroup).replace(/[\r\n\s]+/g, ' ').trim() : '';
+  const s = subjectName ? String(subjectName).trim() : '';
+
+  if (g.includes('국어') || s.includes('국어') || s.includes('문학') || s.includes('독서') || s.includes('화법') || s.includes('언어') || s.includes('문장론') || s.includes('의사소통')) return '국어';
+  if (g.includes('수학') || s.includes('수학') || s.includes('대수') || s.includes('미적분') || s.includes('확률과 통계') || s.includes('기하') || s.includes('통계')) return '수학';
+  if (g.includes('영어') || s.includes('영어') || s.includes('영미')) return '영어';
+  if (g.includes('사회') || g.includes('역사') || g.includes('도덕') || s.includes('한국사') || s.includes('사회') || s.includes('지리') || s.includes('역사') || s.includes('윤리') || s.includes('경제') || s.includes('정치') || s.includes('세계사')) return '사회';
+  if (g.includes('과학') || s.includes('과학') || s.includes('물리') || s.includes('화학') || s.includes('생명') || s.includes('지구') || s.includes('역학과') || s.includes('전자기')) return '과학';
+  if (g.includes('체육') || s.includes('체육') || s.includes('스포츠') || s.includes('운동')) return '체육';
+  if (g.includes('예술') || g.includes('음악') || g.includes('미술') || s.includes('음악') || s.includes('미술') || s.includes('연극')) return '예술';
+  if (g.includes('제2외국어') || g.includes('한문') || s.includes('일본어') || s.includes('중국어') || s.includes('한문') || s.includes('한자')) return '제2외국어/한문';
+  if (g.includes('정보') || g.includes('기술') || g.includes('가정') || s.includes('정보') || s.includes('인공지능') || s.includes('프로그래밍') || s.includes('데이터 과학') || s.includes('소프트웨어')) return '기술·가정/정보';
+  if (g.includes('교양') || s.includes('철학') || s.includes('심리') || s.includes('논술') || s.includes('생태와 환경') || s.includes('보건') || s.includes('진로') || s.includes('프로젝트') || s.includes('창의융합')) return '교양';
+  if (g.includes('농림') || g.includes('건축') || g.includes('식품') || g.includes('경영') || g.includes('화학공업') || g.includes('전문')) return '전문교과';
+  return g || '기타';
 }
 
 const semCols = [
@@ -85,10 +87,12 @@ schools.forEach(school => {
   });
 
   rows.forEach((r, idx) => {
+    const subjectName = String(r['과목'] || r['과목 '] || '').trim();
     const rawGrp = r['(군)'];
-    const stdGrp = normalizeGroup(rawGrp);
+    const stdGrp = normalizeGroup(rawGrp, subjectName);
     const grp = String(r['교과'] || '').trim();
     const isElective = (r['구분'] && String(r['구분']).includes('선택')) || grp.includes('선택');
+    const departmentTrack = r['학과/과정'] ? String(r['학과/과정']).trim() : null;
 
     const semesters = [];
     semCols.forEach(sc => {
@@ -125,10 +129,11 @@ schools.forEach(school => {
       schoolId: schoolIdMap[school] || school,
       category: r['구분'] || '기타',
       groupBlock: grp,
-      rawGroup: String(rawGrp || '').replace(/[\r\n\s]+/g, ' ').trim(),
+      rawGroup: rawGrp ? String(rawGrp).replace(/[\r\n\s]+/g, ' ').trim() : stdGrp,
       standardGroup: stdGrp,
       subjectType: r['과목 유형'] || '',
-      subjectName: String(r['과목 '] || '').trim(),
+      subjectName,
+      departmentTrack,
       defaultCredit: r['기본학점'] != null ? Number(r['기본학점']) : null,
       operatingCredit: r['운영학점'] != null ? Number(r['운영학점']) : null,
       semesters,
