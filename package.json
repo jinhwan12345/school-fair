@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "parse:curriculum": "node scripts/parse-curriculum.js",
+    "build": "node scripts/parse-curriculum.js && next build --turbopack",
     "start": "next start"
   },
   "dependencies": {
