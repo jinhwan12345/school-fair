@@ -669,9 +669,6 @@ export default function CurriculumPage() {
                                                     className={`inline-flex items-center gap-0.5 text-[10px] font-semibold px-1.5 py-0.5 rounded border ${gradeColor}`}
                                                   >
                                                     <span>{sem.semester}</span>
-                                                    <span className="text-[9px] opacity-80 font-normal">
-                                                      ({sem.isDirect ? `${sem.value}학점` : `선택:${sem.value}`})
-                                                    </span>
                                                   </span>
                                                 );
                                               })
