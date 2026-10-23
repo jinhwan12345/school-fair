@@ -24,6 +24,7 @@ export const schoolsData = [
     name: "경신고등학교",
     logo: "/schools/kyungshin/logo.png",
     mainImage: "/schools/kyungshin/main.png.png",
+    subImage: "/schools/kyungshin/main2.png.png",
     info: {
       주소: "대구광역시 수성구 달구벌대로504길 34 (범어동, 경신고등학교, 경신중학교)",
       홈페이지: "https://gyeongsin.dge.hs.kr/",
